@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { Droplets, Mail, MapPin, ExternalLink, Menu, X } from 'lucide-react'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -6,6 +8,20 @@ interface LayoutProps {
 
 function Layout({ children }: LayoutProps) {
   const location = useLocation()
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+
+  // Sticky nav on scroll
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileOpen(false)
+  }, [location.pathname])
 
   const isActive = (path: string) => {
     if (path === '/' && location.pathname === '/') return true
@@ -13,120 +29,229 @@ function Layout({ children }: LayoutProps) {
     return false
   }
 
+  const navItems = [
+    { path: '/', label: 'Research', internal: true },
+    { path: '/people', label: 'People', internal: true },
+    { path: '/news', label: 'News', internal: true },
+    { path: '/publications', label: 'Publications', internal: true },
+    { path: 'https://cee.duytan.edu.vn/', label: 'CEE', internal: false },
+    { path: 'https://duytan.edu.vn/', label: 'DTU', internal: false },
+  ]
+
   return (
-    <div className="min-h-screen bg-white" style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}>
-      <div className="max-w-[810px] mx-auto">
-        {/* Header - Logo row */}
-        <table className="w-full border-0" cellPadding="0" cellSpacing="0">
-          <tbody>
-            <tr>
-              {/* Left - University Logo */}
-              <td width="270" className="align-top">
-                <a href="https://duytan.edu.vn" target="_blank" rel="noopener noreferrer">
-                  <div className="text-2xl font-bold text-black">DUY TAN</div>
-                  <div className="text-xs text-gray-600">UNIVERSITY</div>
-                </a>
-              </td>
-              {/* Middle - Empty */}
-              <td width="270" className="align-center"></td>
-              {/* Right - School Name */}
-              <td width="270" className="align-top text-right">
-                <a href="https://duytan.edu.vn" target="_blank" rel="noopener noreferrer">
-                  <div className="text-right">
-                    <div className="text-lg font-bold text-black tracking-tight">DTU</div>
-                    <div className="text-xs text-gray-600">Research Group</div>
-                  </div>
-                </a>
-              </td>
-            </tr>
-            {/* Black separator bar */}
-            <tr>
-              <td colSpan={3} className="bg-black h-2"></td>
-            </tr>
-          </tbody>
-        </table>
+    <div className="min-h-screen bg-surface-1 flex flex-col">
+      {/* ═══ HEADER ═══ */}
+      <header
+        className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled
+            ? 'bg-dtu-900/95 backdrop-blur-xl shadow-hero'
+            : 'bg-gradient-to-r from-dtu-950 via-dtu-900 to-dtu-800'
+          }`}
+      >
+        <div className="container-content py-4">
+          <div className="flex items-center justify-between">
+            {/* Logo + Group Name */}
+            <Link to="/" className="flex items-center gap-3 group" style={{ textDecoration: 'none' }}>
+              <div className="w-10 h-10 rounded-xl glass flex items-center justify-center group-hover:bg-white/[0.12] transition-all duration-300">
+                <Droplets className="w-5 h-5 text-dtu-300" />
+              </div>
+              <div className="hidden sm:block">
+                <div className="text-white font-bold text-body-lg tracking-tight leading-tight">
+                  Interfacial Water Group
+                </div>
+                <div className="text-dtu-300/80 text-caption font-medium tracking-wide uppercase">
+                  Duy Tan University
+                </div>
+              </div>
+              <div className="sm:hidden">
+                <div className="text-white font-bold text-body tracking-tight">
+                  IWG
+                </div>
+              </div>
+            </Link>
 
-        {/* Navigation Bar */}
-        <table className="w-full border-0" cellPadding="0" cellSpacing="0">
-          <tbody>
-            <tr className="bg-black">
-              <td width="135" className="text-center">
-                <Link
-                  to="/"
-                  className={`block py-1.5 text-white font-bold text-sm no-underline hover:bg-gray-800 ${isActive('/') ? 'bg-gray-800' : ''}`}
-                  style={{ textDecoration: 'none', color: 'white' }}
-                >
-                  Research
-                </Link>
-              </td>
-              <td width="135" className="text-center">
-                <Link
-                  to="/people"
-                  className={`block py-1.5 text-white font-bold text-sm no-underline hover:bg-gray-800 ${isActive('/people') ? 'bg-gray-800' : ''}`}
-                  style={{ textDecoration: 'none', color: 'white' }}
-                >
-                  People
-                </Link>
-              </td>
-              <td width="135" className="text-center">
-                <Link
-                  to="/news"
-                  className={`block py-1.5 text-white font-bold text-sm no-underline hover:bg-gray-800 ${isActive('/news') ? 'bg-gray-800' : ''}`}
-                  style={{ textDecoration: 'none', color: 'white' }}
-                >
-                  News
-                </Link>
-              </td>
-              <td width="135" className="text-center">
-                <Link
-                  to="/publications"
-                  className={`block py-1.5 text-white font-bold text-sm no-underline hover:bg-gray-800 ${isActive('/publications') ? 'bg-gray-800' : ''}`}
-                  style={{ textDecoration: 'none', color: 'white' }}
-                >
-                  Publications
-                </Link>
-              </td>
-              <td width="135" className="text-center">
-                <a
-                  href="https://cee.duytan.edu.vn/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block py-1.5 text-white font-bold text-sm no-underline hover:bg-gray-800"
-                  style={{ textDecoration: 'none', color: 'white' }}
-                >
-                  CEE
-                </a>
-              </td>
-              <td width="135" className="text-center">
-                <a
-                  href="https://duytan.edu.vn/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block py-1.5 text-white font-bold text-sm no-underline hover:bg-gray-800"
-                  style={{ textDecoration: 'none', color: 'white' }}
-                >
-                  DTU
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+            {/* Desktop Nav */}
+            <div className="hidden md:flex items-center gap-1">
+              {navItems.map((item) =>
+                item.internal ? (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className={`nav-link px-4 py-2.5 rounded-lg hover:bg-white/[0.06] ${isActive(item.path) ? 'active text-white' : ''
+                      }`}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={item.path}
+                    href={item.path}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="nav-link px-4 py-2.5 rounded-lg hover:bg-white/[0.06] inline-flex items-center gap-1"
+                    style={{ textDecoration: 'none' }}
+                  >
+                    {item.label}
+                    <ExternalLink className="w-3 h-3 opacity-40" />
+                  </a>
+                )
+              )}
+            </div>
 
-        {/* Spacer */}
-        <div className="h-4"></div>
+            {/* Right side: DTU Logo + Mobile menu button */}
+            <div className="flex items-center gap-3">
+              <a
+                href="https://duytan.edu.vn"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden lg:flex items-center"
+              >
+                <img
+                  src="/5.Duy-Tan.jpg"
+                  alt="Duy Tan University"
+                  className="h-8 rounded object-contain opacity-70 hover:opacity-100 transition-opacity"
+                />
+              </a>
 
-        {/* Main Content */}
-        <main>
-          {children}
-        </main>
-
-        {/* Footer */}
-        <div className="mt-12 py-6 border-t border-gray-200">
-          <p className="text-sm text-gray-600 text-center">
-            © 2025 Interfacial Water Research Group | Duy Tan University
-          </p>
+              {/* Mobile hamburger */}
+              <button
+                onClick={() => setMobileOpen(!mobileOpen)}
+                className="md:hidden p-2 rounded-lg text-white/70 hover:text-white hover:bg-white/[0.08] transition-all"
+                aria-label="Toggle menu"
+              >
+                {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+
+        {/* ═══ MOBILE NAV ═══ */}
+        <div
+          className={`md:hidden overflow-hidden transition-all duration-300 ease-smooth ${mobileOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
+            }`}
+        >
+          <div className="container-content pb-4 pt-2 space-y-1">
+            {navItems.map((item) =>
+              item.internal ? (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`block px-4 py-2.5 rounded-lg text-body-sm font-medium transition-colors ${isActive(item.path)
+                      ? 'bg-white/[0.1] text-white'
+                      : 'text-white/60 hover:text-white hover:bg-white/[0.06]'
+                    }`}
+                  style={{ textDecoration: 'none' }}
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <a
+                  key={item.path}
+                  href={item.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-body-sm font-medium text-white/60 hover:text-white hover:bg-white/[0.06] transition-colors"
+                  style={{ textDecoration: 'none' }}
+                >
+                  {item.label}
+                  <ExternalLink className="w-3 h-3 opacity-40" />
+                </a>
+              )
+            )}
+          </div>
+        </div>
+      </header>
+
+      {/* ═══ MAIN ═══ */}
+      <main className="flex-1">
+        {children}
+      </main>
+
+      {/* ═══ FOOTER ═══ */}
+      <footer className="bg-dtu-950 text-white/60 mt-auto">
+        {/* Top border accent */}
+        <div className="h-px bg-gradient-to-r from-transparent via-dtu-400/30 to-transparent" />
+
+        <div className="container-content py-14">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            {/* Col 1 — Brand */}
+            <div>
+              <div className="flex items-center gap-2.5 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-dtu-800/50 flex items-center justify-center">
+                  <Droplets className="w-4 h-4 text-dtu-400" />
+                </div>
+                <span className="text-white font-semibold text-body">Interfacial Water Group</span>
+              </div>
+              <p className="text-body-sm text-white/40 leading-relaxed max-w-xs">
+                Gaining fundamental insight into the properties of liquid water at interfaces using molecular simulations and experiments.
+              </p>
+            </div>
+
+            {/* Col 2 — Links */}
+            <div>
+              <h4 className="text-white font-semibold text-body-sm uppercase tracking-wider mb-4">
+                Navigation
+              </h4>
+              <ul className="space-y-2.5">
+                {[
+                  { to: '/', label: 'Research' },
+                  { to: '/people', label: 'People' },
+                  { to: '/news', label: 'News & Events' },
+                  { to: '/publications', label: 'Publications' },
+                ].map((link) => (
+                  <li key={link.to}>
+                    <Link
+                      to={link.to}
+                      className="text-body-sm text-white/40 hover:text-dtu-300 transition-colors"
+                      style={{ textDecoration: 'none' }}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+                <li>
+                  <a
+                    href="https://scholar.google.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-body-sm text-white/40 hover:text-dtu-300 transition-colors inline-flex items-center gap-1"
+                    style={{ textDecoration: 'none' }}
+                  >
+                    Google Scholar <ExternalLink className="w-3 h-3" />
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Col 3 — Contact */}
+            <div>
+              <h4 className="text-white font-semibold text-body-sm uppercase tracking-wider mb-4">
+                Contact
+              </h4>
+              <ul className="space-y-3 text-body-sm text-white/40">
+                <li className="flex items-start gap-2.5">
+                  <MapPin className="w-4 h-4 mt-0.5 text-dtu-400/60 flex-shrink-0" />
+                  <span>Duy Tan University<br />Da Nang & Ho Chi Minh City, Vietnam</span>
+                </li>
+                <li className="flex items-center gap-2.5">
+                  <Mail className="w-4 h-4 text-dtu-400/60 flex-shrink-0" />
+                  <span>research@duytan.edu.vn</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Bottom bar */}
+          <div className="mt-12 pt-6 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p className="text-caption text-white/30">
+              © 2025 Interfacial Water Research Group · Duy Tan University
+            </p>
+            <p className="text-caption text-white/20">
+              All rights reserved
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }

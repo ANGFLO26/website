@@ -1,243 +1,164 @@
+import { useEffect } from 'react'
+import { GraduationCap, Award, FlaskConical, BookOpen } from 'lucide-react'
+
+/* ═══ HELPERS ═══ */
+const roleMeta: Record<string, { style: string; icon: React.ElementType }> = {
+  'Professor': { style: 'bg-dtu-900 text-white border-dtu-800', icon: Award },
+  'Research Scholar': { style: 'bg-dtu-50 text-dtu-700 border-dtu-100', icon: FlaskConical },
+  'PhD Student': { style: 'bg-emerald-50 text-emerald-700 border-emerald-100', icon: GraduationCap },
+  'Undergraduate RA': { style: 'bg-amber-50 text-amber-700 border-amber-100', icon: BookOpen },
+}
+
+/* ═══ DATA ═══ */
+interface Member {
+  name: string
+  initials: string
+  role: string
+  roleType: string
+}
+
+const currentMembers: Member[] = [
+  { name: 'Dr. Nguyen Van A', initials: 'NA', role: 'Associate Professor', roleType: 'Professor' },
+  { name: 'Dr. Nguyen Thi B', initials: 'NB', role: 'Associate Research Scholar', roleType: 'Research Scholar' },
+  { name: 'Tran Van C', initials: 'TC', role: 'PhD Student in CEE', roleType: 'PhD Student' },
+  { name: 'Le Thi D', initials: 'LD', role: 'PhD Student in CEE', roleType: 'PhD Student' },
+  { name: 'Pham Van E', initials: 'PE', role: 'PhD Student in CEE', roleType: 'PhD Student' },
+  { name: 'Hoang Thi F', initials: 'HF', role: 'PhD Student in CBE', roleType: 'PhD Student' },
+  { name: 'Vu Van G', initials: 'VG', role: 'Undergraduate Research Assistant', roleType: 'Undergraduate RA' },
+  { name: 'Do Thi H', initials: 'DH', role: 'Undergraduate Research Assistant', roleType: 'Undergraduate RA' },
+]
+
+const alumni2015 = [
+  { name: 'Nguyen Van I', initials: 'I', position: 'Postdoctoral Scholar, Vietnam National University' },
+  { name: 'Tran Thi K', initials: 'K', position: 'Machine Learning Engineer, ABC Company' },
+  { name: 'Le Van L', initials: 'L', position: 'Assistant Professor, HUST' },
+  { name: 'Pham Thi M', initials: 'M', position: 'Associate Professor, Cornell University' },
+]
+
+const alumni2009 = [
+  { name: 'Nguyen Van R', position: 'Associate Professor, Auburn University' },
+  { name: 'Tran Thi S', position: 'Research Scientist, Jet Propulsion Laboratory' },
+  { name: 'Le Van T', position: 'Associate Professor, Umea University, Sweden' },
+  { name: 'Pham Thi U', position: 'Assistant Professor, UC Berkeley' },
+]
+
+const visitingStudents = [
+  { name: 'Hoang Van V', position: 'Engineer, French Agency for Radioactive Waste' },
+  { name: 'Vu Thi X', position: 'Postdoctoral Scholar, UCLA' },
+]
+
+/* ═══ COMPONENT ═══ */
 function People() {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target) }
+      }),
+      { threshold: 0.06, rootMargin: '0px 0px -30px 0px' }
+    )
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <div style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}>
-      <h1 className="text-2xl font-bold text-black mb-6">
-        Group Members
-      </h1>
+    <div>
+      {/* ═══ HEADER ═══ */}
+      <section className="bg-gradient-to-br from-dtu-950 via-dtu-900 to-dtu-800 -mt-0">
+        <div className="container-content py-14 md:py-18">
+          <h1 className="text-h1 text-white mb-2">Our Team</h1>
+          <p className="text-body text-white/50 max-w-lg mb-6">
+            Meet the researchers driving our mission to understand interfacial water.
+          </p>
+          <div className="flex flex-wrap gap-2.5">
+            <span className="badge badge-maroon">{currentMembers.length} Current Members</span>
+            <span className="badge bg-white/[0.08] text-white/70 border-white/[0.1]">{alumni2015.length + alumni2009.length} Alumni</span>
+            <span className="badge bg-white/[0.08] text-white/70 border-white/[0.1]">{visitingStudents.length} Visiting</span>
+          </div>
+        </div>
+      </section>
 
-      {/* Current Members */}
-      <div className="space-y-4 mb-10">
-        {/* Professor */}
-        <table className="border-0" cellPadding="0" cellSpacing="0">
-          <tbody>
-            <tr>
-              <td className="align-top pr-4">
-                <div className="w-24 h-24 bg-gray-200 border border-gray-300 flex items-center justify-center font-bold text-gray-500">NA</div>
-              </td>
-              <td className="align-top">
-                <div className="font-bold text-black text-base">Dr. Nguyen Van A</div>
-                <div className="text-sm text-black"><em>Associate Professor</em></div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      {/* ═══ CURRENT MEMBERS ═══ */}
+      <section className="container-content py-14">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {currentMembers.map((member, index) => {
+            const meta = roleMeta[member.roleType] || roleMeta['PhD Student']
+            const Icon = meta.icon
+            return (
+              <div
+                key={index}
+                className={`reveal reveal-delay-${Math.min(index + 1, 8)} member-card`}
+              >
+                <div className="avatar-ring w-fit mx-auto mb-5">
+                  <div className="w-20 h-20 bg-gradient-to-br from-dtu-50 to-surface-2 flex items-center justify-center text-dtu-600 font-bold text-body-lg">
+                    {member.initials}
+                  </div>
+                </div>
+                <h3 className="text-h3 text-dtu-900 mb-0.5">{member.name}</h3>
+                <p className="text-body-sm text-gray-400 italic mb-4">{member.role}</p>
+                <span className={`badge text-caption border ${meta.style}`}>
+                  <Icon className="w-3 h-3" />
+                  {member.roleType}
+                </span>
+              </div>
+            )
+          })}
+        </div>
+      </section>
 
-        {/* Associate Research Scholar */}
-        <table className="border-0" cellPadding="0" cellSpacing="0">
-          <tbody>
-            <tr>
-              <td className="align-top pr-4">
-                <div className="w-24 h-24 bg-gray-200 border border-gray-300 flex items-center justify-center font-bold text-gray-500">NB</div>
-              </td>
-              <td className="align-top">
-                <div className="font-bold text-black text-base">Dr. Nguyen Thi B</div>
-                <div className="text-sm text-black"><em>Associate Research Scholar</em></div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      {/* ═══ ALUMNI 2015–2024 ═══ */}
+      <section className="bg-surface-2 py-14">
+        <div className="container-content">
+          <div className="reveal">
+            <h2 className="section-heading"><span>Alumni (2015–2024)</span></h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {alumni2015.map((m, i) => (
+              <div key={i} className={`reveal reveal-delay-${i + 1} card-flat flex items-center gap-4 p-4`}>
+                <div className="w-11 h-11 rounded-full bg-gradient-to-br from-dtu-50 to-dtu-100 border-2 border-dtu-100 flex items-center justify-center text-dtu-600 font-bold text-body-sm flex-shrink-0">
+                  {m.initials}
+                </div>
+                <div className="min-w-0">
+                  <div className="text-body-sm font-semibold text-dtu-900 truncate">{m.name}</div>
+                  <div className="text-caption text-gray-400 italic truncate">{m.position}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-        {/* PhD Students - 2 columns */}
-        <table className="w-full border-0" cellPadding="0" cellSpacing="0">
-          <tbody>
-            <tr>
-              <td width="50%" className="align-top pr-4">
-                <table className="border-0" cellPadding="0" cellSpacing="0">
-                  <tbody>
-                    <tr>
-                      <td className="align-top pr-4">
-                        <div className="w-24 h-24 bg-gray-200 border border-gray-300 flex items-center justify-center font-bold text-gray-500">TC</div>
-                      </td>
-                      <td className="align-top">
-                        <div className="font-bold text-black text-base">Tran Van C</div>
-                        <div className="text-sm text-black"><em>PhD Student in CEE</em></div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td width="50%" className="align-top pl-4">
-                <table className="border-0" cellPadding="0" cellSpacing="0">
-                  <tbody>
-                    <tr>
-                      <td className="align-top pr-4">
-                        <div className="w-24 h-24 bg-gray-200 border border-gray-300 flex items-center justify-center font-bold text-gray-500">LD</div>
-                      </td>
-                      <td className="align-top">
-                        <div className="font-bold text-black text-base">Le Thi D</div>
-                        <div className="text-sm text-black"><em>PhD Student in CEE</em></div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-            <tr>
-              <td width="50%" className="align-top pr-4 pt-4">
-                <table className="border-0" cellPadding="0" cellSpacing="0">
-                  <tbody>
-                    <tr>
-                      <td className="align-top pr-4">
-                        <div className="w-24 h-24 bg-gray-200 border border-gray-300 flex items-center justify-center font-bold text-gray-500">PE</div>
-                      </td>
-                      <td className="align-top">
-                        <div className="font-bold text-black text-base">Pham Van E</div>
-                        <div className="text-sm text-black"><em>PhD Student in CEE</em></div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td width="50%" className="align-top pl-4 pt-4">
-                <table className="border-0" cellPadding="0" cellSpacing="0">
-                  <tbody>
-                    <tr>
-                      <td className="align-top pr-4">
-                        <div className="w-24 h-24 bg-gray-200 border border-gray-300 flex items-center justify-center font-bold text-gray-500">HF</div>
-                      </td>
-                      <td className="align-top">
-                        <div className="font-bold text-black text-base">Hoang Thi F</div>
-                        <div className="text-sm text-black"><em>PhD Student in CBE</em></div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      {/* ═══ ALUMNI 2009–2014 + VISITING ═══ */}
+      <section className="container-content py-14">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="reveal">
+            <h2 className="section-heading"><span>Alumni (2009–2014)</span></h2>
+            <div className="space-y-1">
+              {alumni2009.map((m, i) => (
+                <div key={i} className="flex items-center gap-3 py-2.5 px-3 rounded-lg hover:bg-surface-2 transition-colors text-body-sm group">
+                  <div className="w-1.5 h-1.5 rounded-full bg-dtu-300 flex-shrink-0 group-hover:bg-dtu-500 transition-colors" />
+                  <span className="font-semibold text-dtu-900">{m.name}</span>
+                  <span className="text-gray-300">·</span>
+                  <span className="text-gray-400 italic truncate">{m.position}</span>
+                </div>
+              ))}
+            </div>
+          </div>
 
-        {/* Undergraduate RAs - 2 columns */}
-        <table className="w-full border-0" cellPadding="0" cellSpacing="0">
-          <tbody>
-            <tr>
-              <td width="50%" className="align-top pr-4">
-                <table className="border-0" cellPadding="0" cellSpacing="0">
-                  <tbody>
-                    <tr>
-                      <td className="align-top pr-4">
-                        <div className="w-24 h-24 bg-gray-200 border border-gray-300 flex items-center justify-center font-bold text-gray-500">VG</div>
-                      </td>
-                      <td className="align-top">
-                        <div className="font-bold text-black text-base">Vu Van G</div>
-                        <div className="text-sm text-black"><em>Undergraduate Research Assistant</em></div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td width="50%" className="align-top pl-4">
-                <table className="border-0" cellPadding="0" cellSpacing="0">
-                  <tbody>
-                    <tr>
-                      <td className="align-top pr-4">
-                        <div className="w-24 h-24 bg-gray-200 border border-gray-300 flex items-center justify-center font-bold text-gray-500">DH</div>
-                      </td>
-                      <td className="align-top">
-                        <div className="font-bold text-black text-base">Do Thi H</div>
-                        <div className="text-sm text-black"><em>Undergraduate Research Assistant</em></div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      {/* Previous Group Members (2015-2024) */}
-      <h2 className="text-lg font-bold text-black mb-4">
-        Previous Group Members (2015-2024)
-      </h2>
-      <table className="w-full border-0" cellPadding="0" cellSpacing="0">
-        <tbody>
-          <tr>
-            <td width="50%" className="align-top pr-4 pb-4">
-              <table className="border-0" cellPadding="0" cellSpacing="0">
-                <tbody>
-                  <tr>
-                    <td className="align-top pr-3">
-                      <div className="w-16 h-16 bg-gray-200 border border-gray-300 flex items-center justify-center font-bold text-gray-500 text-sm">I</div>
-                    </td>
-                    <td className="align-top">
-                      <div className="font-bold text-black text-sm">Nguyen Van I</div>
-                      <div className="text-xs text-black"><em>Postdoctoral Scholar, Vietnam National University</em></div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-            <td width="50%" className="align-top pl-4 pb-4">
-              <table className="border-0" cellPadding="0" cellSpacing="0">
-                <tbody>
-                  <tr>
-                    <td className="align-top pr-3">
-                      <div className="w-16 h-16 bg-gray-200 border border-gray-300 flex items-center justify-center font-bold text-gray-500 text-sm">K</div>
-                    </td>
-                    <td className="align-top">
-                      <div className="font-bold text-black text-sm">Tran Thi K</div>
-                      <div className="text-xs text-black"><em>Machine Learning Engineer, ABC Company</em></div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-          <tr>
-            <td width="50%" className="align-top pr-4 pb-4">
-              <table className="border-0" cellPadding="0" cellSpacing="0">
-                <tbody>
-                  <tr>
-                    <td className="align-top pr-3">
-                      <div className="w-16 h-16 bg-gray-200 border border-gray-300 flex items-center justify-center font-bold text-gray-500 text-sm">L</div>
-                    </td>
-                    <td className="align-top">
-                      <div className="font-bold text-black text-sm">Le Van L</div>
-                      <div className="text-xs text-black"><em>Assistant Professor, HUST</em></div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-            <td width="50%" className="align-top pl-4 pb-4">
-              <table className="border-0" cellPadding="0" cellSpacing="0">
-                <tbody>
-                  <tr>
-                    <td className="align-top pr-3">
-                      <div className="w-16 h-16 bg-gray-200 border border-gray-300 flex items-center justify-center font-bold text-gray-500 text-sm">M</div>
-                    </td>
-                    <td className="align-top">
-                      <div className="font-bold text-black text-sm">Pham Thi M</div>
-                      <div className="text-xs text-black"><em>Associate Professor, Cornell University</em></div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      {/* Previous Group Members (2009-2014) */}
-      <h2 className="text-lg font-bold text-black mb-4 mt-6">
-        Previous Group Members (2009-2014)
-      </h2>
-      <div className="space-y-1 text-sm text-black mb-6">
-        <p><b>Nguyen Van R</b>, Associate Professor, Auburn University</p>
-        <p><b>Tran Thi S</b>, Research Scientist, Jet Propulsion Laboratory</p>
-        <p><b>Le Van T</b>, Associate Professor, Umea University, Sweden</p>
-        <p><b>Pham Thi U</b>, Assistant Professor, UC Berkeley</p>
-      </div>
-
-      {/* Previous Visiting Graduate Students */}
-      <h2 className="text-lg font-bold text-black mb-4">
-        Previous Visiting Graduate Students
-      </h2>
-      <div className="space-y-1 text-sm text-black">
-        <p><b>Hoang Van V</b>, Engineer, French Agency for Radioactive Waste</p>
-        <p><b>Vu Thi X</b>, Postdoctoral Scholar, UCLA</p>
-      </div>
+          <div className="reveal reveal-delay-2">
+            <h2 className="section-heading"><span>Visiting Students</span></h2>
+            <div className="space-y-1">
+              {visitingStudents.map((s, i) => (
+                <div key={i} className="flex items-center gap-3 py-2.5 px-3 rounded-lg hover:bg-surface-2 transition-colors text-body-sm group">
+                  <div className="w-1.5 h-1.5 rounded-full bg-dtu-300 flex-shrink-0 group-hover:bg-dtu-500 transition-colors" />
+                  <span className="font-semibold text-dtu-900">{s.name}</span>
+                  <span className="text-gray-300">·</span>
+                  <span className="text-gray-400 italic truncate">{s.position}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
