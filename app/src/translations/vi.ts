@@ -5,7 +5,6 @@ const vi = {
     'nav.news': 'Tin tức',
     'nav.publications': 'Công bố',
     'nav.cee': 'CEE',
-    'nav.dtu': 'DTU',
 
     // Layout - Header
     'header.groupName': 'Nhóm Nghiên cứu Nước Giao Diện',
@@ -41,7 +40,7 @@ const vi = {
 
     // Home - Research Goals
     'home.researchGoals': 'Mục tiêu Nghiên cứu',
-    'home.researchGoalsText': 'Bề mặt tiếp xúc giữa nước lỏng và các pha khác (khoáng vật, không khí, chất lỏng giàu carbon, sinh vật) phổ biến trong môi trường tự nhiên. Hóa học bề mặt và thông lượng khối lượng tại các bề mặt này đóng vai trò quan trọng trong nhiều hiện tượng môi trường bao gồm vận chuyển chất ô nhiễm, chu trình địa hóa sinh của kim loại, dòng chảy đa pha trong môi trường xốp, ngưng tụ mây, vận chuyển trầm tích, xử lý nước và động lực carbon trong đất. Nghiên cứu của chúng tôi nhằm đạt được <strong>hiểu biết cơ bản về tính chất của nước lỏng tại các bề mặt tiếp xúc</strong> bằng mô phỏng ở cấp nguyên tử tiên tiến, mô hình quy mô vĩ mô và thí nghiệm trong phòng thí nghiệm nhằm cải thiện các biểu diễn hiện có của các quá trình môi trường quan trọng.',
+    'home.researchGoalsText': 'Bề mặt tiếp xúc giữa nước lỏng và các pha khác (khoáng vật, không khí, chất lỏng giàu carbon, sinh vật) phổ biến trong môi trường tự nhiên. Hóa học bề mặt và thông lượng khối lượng tại các bề mặt này đóng vai trò quan trọng trong nhiều hiện tượng môi trường bao gồm vận chuyển chất ô nhiễm, chu trình địa hóa sinh của kim loại, dòng chảy đa pha trong môi trường xốp, ngưng tụ mây, vận chuyển trầm tích, xử lý nước và động lực carbon trong đất. Nghiên cứu của chúng tôi nhằm đạt được hiểu biết cơ bản về tính chất của nước lỏng tại các bề mặt tiếp xúc bằng mô phỏng ở cấp nguyên tử tiên tiến, mô hình quy mô vĩ mô và thí nghiệm trong phòng thí nghiệm nhằm cải thiện các biểu diễn hiện có của các quá trình môi trường quan trọng.',
 
     // Home - Methods
     'home.methods': 'Phương pháp',

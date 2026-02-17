@@ -2,16 +2,18 @@
 
 ## Project Overview
 
-Website for the "Interfacial Water Group" research group at Duy Tan University, cloned from Princeton University's research group website design (https://bourg.princeton.edu/index.html).
+Website for the "Interfacial Water Group" research group at Duy Tan University. The design has been modernized from the original Princeton-inspired layout to a contemporary, accessible design with the official Duy Tan University color scheme.
 
 ## Tech Stack
 
 - **Framework**: React 19 + TypeScript
 - **Build Tool**: Vite
-- **Styling**: Tailwind CSS + Inline table-based layout (matching Princeton's HTML structure)
-- **UI Components**: shadcn/ui (available but not actively used)
+- **Styling**: Tailwind CSS + Custom CSS components
+- **Animations**: Framer Motion
+- **UI Components**: shadcn/ui (50+ components available)
 - **Routing**: React Router DOM
 - **Icons**: Lucide React
+- **Internationalization**: Custom React Context-based i18n (EN/VI)
 
 ## Project Structure
 
@@ -19,25 +21,37 @@ Website for the "Interfacial Water Group" research group at Duy Tan University, 
 app/
 ├── src/
 │   ├── main.tsx              # Application entry point
-│   ├── App.tsx               # Root component with routing
-│   ├── index.css             # Global styles + Tailwind directives
-│   ├── App.css               # App-specific styles
+│   ├── App.tsx               # Root component with routing + animations
+│   ├── index.css             # Global styles + Tailwind directives + custom CSS
 │   ├── lib/
 │   │   └── utils.ts          # Utility functions (cn helper)
 │   ├── hooks/
-│   │   └── use-mobile.ts     # Mobile detection hook
+│   │   ├── use-mobile.ts     # Mobile detection hook
+│   │   └── useScrollAnimation.ts  # Scroll animation hooks
+│   ├── contexts/
+│   │   └── LanguageContext.tsx  # i18n context provider
+│   ├── translations/
+│   │   ├── en.ts             # English translations
+│   │   └── vi.ts             # Vietnamese translations
 │   ├── components/
-│   │   ├── Layout.tsx        # Main layout with Princeton-style header/nav
-│   │   └── ui/               # shadcn/ui components (50+ components available)
+│   │   ├── Layout.tsx        # Main layout with header/nav/footer
+│   │   ├── LanguageToggle.tsx # EN/VI language switch
+│   │   ├── PageTransition.tsx # Page transition animations
+│   │   ├── BackToTop.tsx     # Back to top button
+│   │   ├── ReadingProgress.tsx # Reading progress bar
+│   │   ├── Skeleton.tsx      # Skeleton loading components
+│   │   └── ui/               # shadcn/ui components
 │   └── pages/
-│       ├── Home.tsx          # Research page (homepage) - table-based layout
-│       ├── People.tsx        # Group members page - table-based layout
+│       ├── Home.tsx          # Homepage with research overview
+│       ├── People.tsx        # Team members page
 │       ├── News.tsx          # News & events page
-│       └── Publications.tsx  # Scientific publications page
-├── dist/                     # Build output directory
-├── package.json              # Dependencies
+│       └── Publications.tsx  # Publications page
+├── public/                   # Static assets
+│   ├── 5.Duy-Tan.jpg        # DTU logo (used in footer/reference)
+│   ├── asset_1.jpg          # Professor photo
+│   └── asset_2.jpg          # Group photo
+├── dist/                     # Build output
 ├── tailwind.config.js        # Tailwind configuration
-├── tsconfig.json             # TypeScript configuration
 └── components.json           # shadcn/ui configuration
 ```
 
@@ -55,173 +69,261 @@ npm run preview   # Preview production build
 | Route | Component | Description |
 |-------|-----------|-------------|
 | `/` | Home | Research overview, profile, research goals |
-| `/people` | People | Current and previous group members |
-| `/news` | News | News and events |
+| `/people` | People | Current and alumni group members |
+| `/news` | News | News and events timeline |
 | `/publications` | Publications | Scientific publications list |
 
-## Layout Components
+## Design System
+
+### Color Palette (Duy Tan University Official)
+
+| Name | Color | Hex | Usage |
+|------|-------|-----|-------|
+| **DTU Red** | ![#C8102E](https://via.placeholder.com/20/C8102E/C8102E.png) | `#C8102E` | Primary brand color, buttons, accents |
+| **DTU Red 700** | ![#B91C1C](https://via.placeholder.com/20/B91C1C/B91C1C.png) | `#B91C1C` | Hover states, active nav |
+| **DTU Red 800** | ![#991B1B](https://via.placeholder.com/20/991B1B/991B1B.png) | `#991B1B` | Darker accents |
+| **Gray 900** | ![#111827](https://via.placeholder.com/20/111827/111827.png) | `#111827` | Headings, primary text |
+| **Gray 700** | ![#374151](https://via.placeholder.com/20/374151/374151.png) | `#374151` | Body text |
+| **Gray 600** | ![#4B5563](https://via.placeholder.com/20/4B5563/4B5563.png) | `#4B5563` | Secondary text |
+| **White** | ![#FFFFFF](https://via.placeholder.com/20/FFFFFF/FFFFFF.png) | `#FFFFFF` | Backgrounds, text on dark |
+
+### Typography
+
+- **Font Family**: Inter, Be Vietnam Pro (for Vietnamese), system-ui
+- **Base Size**: 15px
+- **Line Height**: 1.7 (1.75 for Vietnamese)
+
+| Style | Size | Weight | Usage |
+|-------|------|--------|-------|
+| Display | 3.5rem (56px) | 800 | Hero title |
+| H1 | 2.25rem (36px) | 700 | Page titles |
+| H2 | 1.75rem (28px) | 700 | Section headings |
+| H3 | 1.25rem (20px) | 600 | Card titles |
+| Body | 0.9375rem (15px) | 400 | Paragraphs |
+| Caption | 0.75rem (12px) | 600 | Labels, badges |
+
+### Layout Specifications
+
+- **Max Width**: 960px (`max-w-content`)
+- **Container Padding**: `px-5 sm:px-6 lg:px-8`
+- **Section Spacing**: `py-14` (56px) or `py-16` (64px)
+- **Grid Gaps**: `gap-6` (24px)
+
+## Components
 
 ### Layout.tsx
 
-**Header Structure (Princeton-style):**
-- Table-based layout with 3 columns: Logo (270px) | Empty (270px) | School Name (270px)
-- Black separator bar (8px height)
-- Max width: 810px (centered)
+**Header:**
+- Sticky header with white background
+- Gradient red background for hero sections only
+- Logo + Group Name | Navigation | Language Toggle
+- Mobile hamburger menu with smooth animations
 
-**Navigation Bar:**
-- Black background (#000000)
-- 6 navigation items equally spaced (~135px each)
-- White text, Arial font, bold
-- Hover effect: gray-800 background
-- External links (CEE, HMEI) open in new tab
+**Navigation:**
+- 5 items: Research, People, News, Publications, CEE
+- Active state: red text + red-50 background
+- Hover: red text + red-50 background
+- External link (CEE) opens in new tab
 
-## Styling Conventions
+**Footer:**
+- Dark background (gray-900)
+- 3-column layout: Brand, Links, Contact
+- Red accent for icons and links
 
-### Typography (Matching Princeton)
-- **Font Family**: Arial, Helvetica, sans-serif (NOT Georgia/Times)
-- **Base Font Size**: 14px (equivalent to SIZE=-0 in HTML)
-- **Headings**: Arial bold, various sizes
-- **Text Alignment**: Justify for paragraphs
+### Animation Components
 
-### Font Size Mapping
-| HTML Size | CSS Equivalent | Usage |
-|-----------|----------------|-------|
-| SIZE=+3 | text-2xl (~24px) | Page title ("Interfacial Water Group") |
-| SIZE=+2 | text-xl (~20px) | Person name ("Ian C. Bourg") |
-| SIZE=+1 | text-lg (~18px) | Section headings ("Research Goals") |
-| SIZE=-0 | text-sm (~14px) | Body text, default |
+**PageTransition.tsx**
+- Wraps all page content
+- Fade + slide animation on route change
+- Duration: 400ms, Easing: ease-smooth
 
-### Colors
-| Element | Color | Hex Code |
-|---------|-------|----------|
-| Links | SteelBlue | #4682B4 |
-| Links Hover | SteelBlue + underline | #4682B4 |
-| Navigation Text | White | #FFFFFF |
-| Navigation BG | Black | #000000 |
-| Body Text | Black | #000000 |
-| Background | White | #FFFFFF |
+**BackToTop.tsx**
+- Appears after scrolling 500px
+- Fixed position bottom-right
+- Red background, white arrow
+- Smooth scroll to top on click
 
-### Layout Specifications
-- **Max Width**: 810px (centered)
-- **Profile Section**: Table with columns 270px | 5px | 260px | 5px | 260px
-- **Photo Sizes**: 
-  - Personal photo: 270px width
-  - Group photo: 260px x 260px
-  - Member thumbnails: 96px x 96px (w-24)
-  - Previous member thumbnails: 64px x 64px (w-16)
+**ReadingProgress.tsx**
+- Fixed at top of viewport
+- Shows scroll progress (0-100%)
+- Red gradient bar
 
 ## Page Content Structure
 
 ### Home Page
-**Profile Section:**
-- Left: Personal photo (270px)
-- Middle: Name (SIZE=+2), Title (italic), Department info, CV link
-- Right: Group photo (260x260)
 
-**Content Sections:**
-- Research Goals
-- Methods
-- Current Research (4 research areas with italic subtitles)
-- Each area has "References" link
+**Hero Section:**
+- Gradient red background (DTU colors)
+- Animated background elements (floating orbs)
+- Title + Subtitle + Stats row
+- Stats: Publications (17+), Members (8), Research Areas (4)
+
+**Profile Card:**
+- Professor photo (left)
+- Name, Title, Department info (center)
+- Group photo (right, desktop only)
+- CV download button
+
+**Research Goals:**
+- Full-width section
+- Justified text
+
+**Methods (Collapsible):**
+- Expandable section
+- Summary + Detail content
+- Smooth height animation
+
+**Current Research (4 cards):**
+- 2x2 grid on desktop
+- Each card: Icon, Title, Summary, expandable Details
+- Color-coded icons (amber, red, emerald, purple)
 
 ### People Page
+
 **Current Members:**
-- Professor (single column)
-- Research Scholar (single column)
-- PhD Students (2-column grid)
-- Undergraduate RAs (2-column grid)
+- 4-column grid (1 col mobile, 2 col tablet, 4 col desktop)
+- Avatar with gradient background
+- Name, Role, Role badge
+- Role colors: Professor (red), Research Scholar (red-50), PhD Student (gray), Undergraduate (amber)
 
-**Previous Members (2015-2024):**
-- 2-column table layout
-- Small photos (64x64) + name + position
-
-**Previous Members (2009-2014):**
-- Text-only list
-
-**Visiting Students:**
-- Text-only list
+**Alumni Sections:**
+- 2015-2024: Card layout with initials avatar
+- 2009-2014: List layout
+- Visiting Students: List layout
 
 ### News Page
-- Chronological list (newest first)
-- Date + Event title (bold)
-- Description (justify text)
-- Links where applicable
+
+**Timeline Layout:**
+- Vertical timeline with dots
+- Year badges (red)
+- Monthly date labels
+- Expandable cards with hover effect
 
 ### Publications Page
-- Google Scholar link at top
-- Organized by year (2025 → 2022)
-- "In preparation" section at top
-- Citation format: Authors. Title. *Journal* Volume, <a>Pages</a> (Year).
 
-## HTML Structure Notes
+**Stats Bar:**
+- Total papers count
+- Unique journals count
+- Year range
 
-The website uses **table-based layout** to exactly match Princeton's original HTML structure:
+**In Preparation Section:**
+- Grayed out, reduced opacity
+- Listed at top
 
+**By Year:**
+- Grouped by year (descending)
+- Year badge (red)
+- Paper count per year
+- Journal badges (color-coded by journal type)
+- DOI links
+
+## Animation System
+
+### Scroll Animations (Framer Motion)
+
+All sections use `whileInView` animations:
+- **Initial**: `opacity: 0, y: 30`
+- **Animate**: `opacity: 1, y: 0`
+- **Duration**: 0.5-0.6s
+- **Easing**: `[0.22, 1, 0.36, 1]` (ease-smooth)
+- **Stagger**: 0.1s delay between items
+
+### Hover Effects
+
+- Cards: `translateY(-4px)` + shadow increase
+- Buttons: Background darken + slight lift
+- Links: Color change to red
+- Nav items: Background highlight
+
+### Page Transitions
+
+- Fade out: `opacity: 0, y: -20`
+- Fade in: `opacity: 1, y: 0`
+- Duration: 400ms
+- Mode: `wait` (exit before enter)
+
+## Internationalization (i18n)
+
+### Supported Languages
+- English (EN) - default
+- Vietnamese (VI)
+
+### Translation Files
+- `translations/en.ts` - English strings
+- `translations/vi.ts` - Vietnamese strings
+
+### Usage
 ```tsx
-<table className="w-full border-0" cellPadding="0" cellSpacing="0">
-  <tbody>
-    <tr>
-      <td width="270">...</td>
-      <td width="5"></td>
-      <td width="260">...</td>
-    </tr>
-  </tbody>
-</table>
+const { t } = useLanguage()
+<h1>{t('home.heroTitle1')}</h1>
 ```
 
-This is intentional to replicate the original website's look and feel.
+### Language Toggle
+- Located in header (right side)
+- Globe icon + "EN"/"VI" text
+- Smooth slide animation
+- Persists to localStorage
 
 ## Assets
 
-Static images referenced:
-- `/5.Duy-Tan.jpg` - Duy Tan University logo
-- `/asset_1.jpg` - Professor's photo (270px)
-- `/asset_2.jpg` - Group photo (260x260)
+### Required Images
+| File | Description | Dimensions |
+|------|-------------|------------|
+| `/asset_1.jpg` | Professor photo | Square, 270px+ |
+| `/asset_2.jpg` | Group photo | Square, 260px+ |
+| `/5.Duy-Tan.jpg` | DTU Logo | Reference only |
 
-Original assets stored in `/assets/` directory at project root.
+### Fonts
+- Inter (Latin characters)
+- Be Vietnam Pro (Vietnamese characters)
+- Loaded from Google Fonts
 
-## Configuration Files
+## Development Guidelines
 
-### tailwind.config.js
-- Content paths for Vite project
-- Custom colors using HSL
-- Custom animations
+### Adding a New Page
+1. Create component in `pages/`
+2. Add route in `App.tsx`
+3. Add navigation item in `Layout.tsx` navItems
+4. Add translations in `en.ts` and `vi.ts`
 
-### tsconfig.json
-- Path alias: `@/*` → `./src/*`
-- References to app and node configs
+### Color Usage
+- Use `dtu-red` colors for brand elements
+- Use `gray` scale for text (not `neutral`)
+- Use `red-50` for light backgrounds/hovers
 
-### components.json
-- shadcn/ui style: "new-york"
-- Base color: slate
-- Icon library: lucide
-- TypeScript enabled
+### Animation Best Practices
+- Use `whileInView` for scroll animations
+- Set `viewport={{ once: true }}` to animate only once
+- Use consistent easing: `[0.22, 1, 0.36, 1]`
+- Keep durations between 300-600ms
 
-## Development Notes
+### Code Cleanup
+- Remove unused imports
+- Delete dead code
+- Keep translation keys synchronized
+- Run `npm run lint` before committing
 
-### Key Differences from Original Princeton Site
-1. **Framework**: React SPA vs static HTML
-2. **Routing**: Client-side routing vs separate HTML files
-3. **Build**: Vite build system
+## Future Improvements
 
-### Data to Replace for Duy Tan University
-When customizing for Duy Tan:
+- [ ] Add actual professor and group photos
+- [ ] Connect to CMS for dynamic content
+- [ ] Add search functionality
+- [ ] Add filter for publications
+- [ ] Add photo gallery/lightbox
+- [ ] Add contact form
+- [ ] Add newsletter signup
+- [ ] SEO optimization (meta tags, structured data)
+- [ ] Performance optimization (image lazy loading)
+- [ ] Accessibility audit (WCAG 2.1 AA)
 
-1. **Logo**: Replace `/5.Duy-Tan.jpg` with official Duy Tan logo
-2. **Photos**: 
-   - Replace `/asset_1.jpg` with actual professor photo
-   - Replace `/asset_2.jpg` with actual group photo
-3. **Content**: Update all text content in:
-   - `Home.tsx` - Research info, professor details
-   - `People.tsx` - Member list
-   - `News.tsx` - News items
-   - `Publications.tsx` - Publications
-4. **Links**: Update external links (CEE, HMEI) to Duy Tan equivalents
-5. **Footer**: Update copyright text
+## Changelog
 
-### Future Improvements
-- Add image rotation/carousel for group photos
-- Add expandable "References" sections with JavaScript
-- Add responsive mobile layout (currently desktop-only)
-- Add dark mode toggle
-- Integrate with CMS for dynamic content
+### 2025-02-17
+- ✅ Redesigned header with white background
+- ✅ Updated to DTU official color palette (#C8102E)
+- ✅ Added Framer Motion animations throughout
+- ✅ Added PageTransition, BackToTop, ReadingProgress components
+- ✅ Improved text contrast and readability
+- ✅ Cleaned up unused code and dependencies
+- ✅ Removed unused logo files
+- ✅ Fixed translation inconsistencies

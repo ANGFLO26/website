@@ -5,7 +5,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['Inter', 'Be Vietnam Pro', 'system-ui', '-apple-system', 'sans-serif'],
+        inter: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        vietnamese: ['Be Vietnam Pro', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
       fontSize: {
         'display': ['3.5rem', { lineHeight: '1.1', letterSpacing: '-0.02em', fontWeight: '800' }],
@@ -18,22 +20,83 @@ module.exports = {
         'caption': ['0.75rem', { lineHeight: '1.5' }],
       },
       colors: {
+        // Primary brand color - DTU Crimson Red (from official logo)
         dtu: {
           50: '#FEF2F2',
-          100: '#FDE8E8',
-          200: '#F9BDBD',
-          300: '#F49393',
-          400: '#E74C3C',
-          500: '#C0392B',
-          600: '#962D22',
-          700: '#6B2018',
-          800: '#4A2125',
-          900: '#2C1215',
-          950: '#1A0B0D',
+          100: '#FEE2E2',
+          200: '#FECACA',
+          300: '#FCA5A5',
+          400: '#F87171',
+          500: '#EF4444',
+          600: '#DC2626',
+          700: '#B91C1C',
+          800: '#991B1B',
+          900: '#7F1D1D',
+          950: '#450A0A',
         },
-        maroon: {
-          DEFAULT: '#4A2125',
-          light: '#6B2018',
+        // DTU Official Colors
+        'dtu-red': {
+          DEFAULT: '#C8102E', // Official DTU Crimson
+          50: '#FEF2F2',
+          100: '#FEE2E2',
+          200: '#FECACA',
+          300: '#FCA5A5',
+          400: '#F87171',
+          500: '#EF4444',
+          600: '#DC2626',
+          700: '#B91C1C',
+          800: '#991B1B',
+          900: '#C8102E', // Primary
+          950: '#450A0A',
+        },
+        'dtu-gray': {
+          DEFAULT: '#808080', // From "UNIVERSITY" text in logo
+          50: '#F9FAFB',
+          100: '#F3F4F6',
+          200: '#E5E7EB',
+          300: '#D1D5DB',
+          400: '#9CA3AF',
+          500: '#6B7280',
+          600: '#4B5563',
+          700: '#374151',
+          800: '#808080', // Primary gray
+          900: '#111827',
+          950: '#030712',
+        },
+        // Semantic colors - DTU style
+        brand: {
+          DEFAULT: '#C8102E',
+          light: '#DC2626',
+          dark: '#991B1B',
+          50: '#FEF2F2',
+          100: '#FEE2E2',
+          500: '#EF4444',
+          600: '#DC2626',
+          700: '#C8102E', // Primary DTU Red
+          800: '#991B1B',
+          900: '#7F1D1D',
+        },
+        // Accent colors - giảm từ 4 xuống 2
+        accent: {
+          blue: '#2563EB',
+          'blue-light': '#3B82F6',
+          'blue-dark': '#1D4ED8',
+          emerald: '#059669',
+          'emerald-light': '#10B981',
+        },
+        // Neutral scale mở rộng
+        neutral: {
+          50: '#FAFAFA',
+          100: '#F5F5F5',
+          200: '#E5E5E5',
+          300: '#D4D4D4',
+          400: '#A3A3A3',
+          500: '#737373',
+          600: '#525252',
+          700: '#404040',
+          800: '#262626',
+          900: '#171717',
+          950: '#0A0A0A',
         },
         surface: {
           0: '#FFFFFF',
@@ -89,7 +152,7 @@ module.exports = {
         'card': '0 2px 8px rgba(0,0,0,0.06), 0 0px 1px rgba(0,0,0,0.08)',
         'card-hover': '0 8px 25px rgba(0,0,0,0.1), 0 2px 6px rgba(0,0,0,0.06)',
         'elevated': '0 10px 40px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04)',
-        'glow-red': '0 0 20px rgba(192,57,43,0.15)',
+        'glow-red': '0 0 20px rgba(200,16,46,0.15)',
         'hero': '0 20px 60px rgba(44,18,21,0.25)',
         'inner-subtle': 'inset 0 1px 2px rgba(0,0,0,0.06)',
       },
@@ -101,6 +164,8 @@ module.exports = {
       maxWidth: {
         'content': '960px',
         'narrow': '720px',
+        'wide': '1200px',
+        'xl': '1280px',
       },
       keyframes: {
         "accordion-down": {

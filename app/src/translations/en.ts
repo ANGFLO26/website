@@ -5,7 +5,6 @@ const en = {
     'nav.news': 'News',
     'nav.publications': 'Publications',
     'nav.cee': 'CEE',
-    'nav.dtu': 'DTU',
 
     // Layout - Header
     'header.groupName': 'Interfacial Water Group',
@@ -41,7 +40,7 @@ const en = {
 
     // Home - Research Goals
     'home.researchGoals': 'Research Goals',
-    'home.researchGoalsText': 'Interfaces between liquid water and other phases (minerals, air, carbon-rich fluids, living organisms) are ubiquitous in terrestrial natural environments. Surface chemistry and mass fluxes at these interfaces play key roles in influencing a broad range of environmental phenomena including contaminant fate and transport, metal biogeochemical cycling, multiphase flow in porous media, cloud nucleation, sediment transport, water treatment processes, and soil carbon dynamics. Our research aims to gain <strong>fundamental insight into the properties of liquid water at interfaces</strong> using state-of-the-art atomistic-level simulations, macroscopic scale models, and laboratory experiments in order to improve existing representations of key environmental processes.',
+    'home.researchGoalsText': 'Interfaces between liquid water and other phases (minerals, air, carbon-rich fluids, living organisms) are ubiquitous in terrestrial natural environments. Surface chemistry and mass fluxes at these interfaces play key roles in influencing a broad range of environmental phenomena including contaminant fate and transport, metal biogeochemical cycling, multiphase flow in porous media, cloud nucleation, sediment transport, water treatment processes, and soil carbon dynamics. Our research aims to gain fundamental insight into the properties of liquid water at interfaces using state-of-the-art atomistic-level simulations, macroscopic scale models, and laboratory experiments in order to improve existing representations of key environmental processes.',
 
     // Home - Methods
     'home.methods': 'Methods',

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useCallback } from 'react'
+import { createContext, useState, useEffect, useCallback } from 'react'
 import en from '../translations/en'
 import vi from '../translations/vi'
 
@@ -19,14 +19,14 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
         try {
             const saved = localStorage.getItem('iwg-lang')
             if (saved === 'en' || saved === 'vi') return saved
-        } catch { }
+        } catch { /* ignore localStorage errors */ }
         return 'en'
     })
 
     useEffect(() => {
         try {
             localStorage.setItem('iwg-lang', language)
-        } catch { }
+        } catch { /* ignore localStorage errors */ }
     }, [language])
 
     const setLanguage = useCallback((lang: Language) => {
@@ -47,10 +47,4 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     )
 }
 
-export function useLanguage() {
-    const context = useContext(LanguageContext)
-    if (!context) {
-        throw new Error('useLanguage must be used within a LanguageProvider')
-    }
-    return context
-}
+export default LanguageContext

@@ -1,4 +1,4 @@
-import { useLanguage } from '../contexts/LanguageContext'
+import { useLanguage } from '../contexts/useLanguage'
 import { Globe } from 'lucide-react'
 
 function LanguageToggle() {
@@ -11,13 +11,13 @@ function LanguageToggle() {
     return (
         <button
             onClick={toggle}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg
-        bg-white/[0.08] hover:bg-white/[0.15]
-        text-white/70 hover:text-white
-        border border-white/[0.1] hover:border-white/[0.2]
+            className="flex items-center gap-2 px-3 py-2 rounded-lg
+        bg-gray-100 hover:bg-gray-200
+        text-gray-700 hover:text-dtu-red-600
+        border border-gray-200 hover:border-dtu-red-200
         transition-all duration-300 ease-smooth
         text-caption font-semibold tracking-wide
-        cursor-pointer select-none"
+        cursor-pointer select-none min-h-[40px] min-w-[60px]"
             aria-label={language === 'en' ? 'Switch to Vietnamese' : 'Chuyển sang Tiếng Anh'}
             title={language === 'en' ? 'Chuyển sang Tiếng Việt' : 'Switch to English'}
         >

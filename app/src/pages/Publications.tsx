@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
-import { ExternalLink, BookOpen, FileText, ArrowRight } from 'lucide-react'
-import { useLanguage } from '../contexts/LanguageContext'
+import { motion } from 'framer-motion'
+import { ExternalLink, BookOpen, FileText } from 'lucide-react'
+import { useLanguage } from '../contexts/useLanguage'
 
 /* ═══ TYPES ═══ */
 interface Publication {
@@ -49,7 +49,7 @@ const journalColor = (j: string): string => {
   if (j.includes('Chem. Phys')) return 'bg-indigo-50 text-indigo-700 border-indigo-100'
   if (j.includes('Biomacro')) return 'bg-teal-50 text-teal-700 border-teal-100'
   if (j.includes('Clay')) return 'bg-orange-50 text-orange-700 border-orange-100'
-  return 'bg-gray-50 text-gray-600 border-gray-100'
+  return 'bg-neutral-50 text-neutral-600 border-neutral-100'
 }
 
 /* ═══ COMPONENT ═══ */
@@ -58,88 +58,120 @@ function Publications() {
   const uniqueJournals = new Set(publications.map((p) => p.journal))
   const { t } = useLanguage()
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target) }
-      }),
-      { threshold: 0.04, rootMargin: '0px 0px -20px 0px' }
-    )
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <div>
       {/* ═══ HEADER ═══ */}
-      <section className="bg-gradient-to-br from-dtu-950 via-dtu-900 to-dtu-800">
+      <section className="bg-gradient-to-br from-dtu-red-800 via-dtu-red-700 to-dtu-red-600">
         <div className="container-content py-14 md:py-18">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5">
             <div>
-              <h1 className="text-h1 text-white mb-2">{t('pub.title')}</h1>
-              <p className="text-body text-white/50 max-w-lg">
+              <motion.h1 
+                className="text-h1 text-white mb-2"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {t('pub.title')}
+              </motion.h1>
+              <motion.p 
+                className="text-body text-white/90 max-w-lg drop-shadow-md"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              >
                 {t('pub.subtitle')}
-              </p>
+              </motion.p>
             </div>
-            <a
-              href="https://scholar.google.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary self-start sm:self-auto"
-              style={{ textDecoration: 'none', color: 'white' }}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             >
-              <BookOpen className="w-4 h-4" />
-              {t('pub.googleScholar')}
-              <ExternalLink className="w-3 h-3 opacity-50" />
-            </a>
+              <a
+                href="https://scholar.google.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary self-start sm:self-auto"
+                style={{ textDecoration: 'none', color: 'white' }}
+              >
+                <BookOpen className="w-4 h-4" />
+                {t('pub.googleScholar')}
+                <ExternalLink className="w-3 h-3 opacity-50" />
+              </a>
+            </motion.div>
           </div>
 
           {/* Stats bar */}
-          <div className="flex flex-wrap gap-2.5 mt-6">
-            <span className="badge bg-white/[0.08] text-white/80 border-white/[0.1]">
+          <motion.div 
+            className="flex flex-wrap gap-2.5 mt-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <span className="badge bg-white/[0.12] text-white/95 border-white/[0.2]">
               <FileText className="w-3 h-3" />
               {publications.length + inPreparation.length} {t('pub.papers')}
             </span>
-            <span className="badge bg-white/[0.08] text-white/80 border-white/[0.1]">
+            <span className="badge bg-white/[0.12] text-white/95 border-white/[0.2]">
               {uniqueJournals.size} {t('pub.journals')}
             </span>
-            <span className="badge bg-white/[0.08] text-white/80 border-white/[0.1]">
+            <span className="badge bg-white/[0.12] text-white/95 border-white/[0.2]">
               {years[years.length - 1]}–{years[0]}
             </span>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       <div className="container-content py-14">
         {/* ═══ IN PREPARATION ═══ */}
-        <div className="reveal mb-10">
+        <motion.div 
+          className="mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        >
           <div className="flex items-center gap-3 mb-4">
-            <span className="badge badge-accent font-bold">{t('pub.inPreparation')}</span>
-            <div className="flex-1 h-px bg-amber-200/50" />
+            <span className="badge bg-neutral-100 text-neutral-600 border-neutral-200 font-bold">{t('pub.inPreparation')}</span>
+            <div className="flex-1 h-px bg-neutral-200" />
           </div>
           {inPreparation.map((pub, i) => (
-            <div key={i} className="pub-card">
-              <p className="text-body-sm text-gray-600">
-                <span className="font-semibold text-dtu-900">{pub.authors}</span>
-                {' '}{pub.title}, <span className="italic text-gray-400">in preparation ({pub.year})</span>.
+            <motion.div 
+              key={i} 
+              className="pub-card opacity-75"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 0.75, x: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.4, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <p className="text-body-sm text-neutral-600">
+                <span className="font-semibold text-neutral-800">{pub.authors}</span>
+                {' '}{pub.title}, <span className="italic text-neutral-400">in preparation ({pub.year})</span>.
               </p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* ═══ BY YEAR ═══ */}
         {years.map((year) => {
           const yearPubs = publications.filter((p) => p.year === year)
+          
           return (
             <div key={year} className="mb-10">
               {/* Year divider */}
-              <div className="reveal flex items-center gap-3 mb-5">
-                <span className="badge badge-maroon text-caption font-bold px-3.5 py-1">{year}</span>
-                <div className="flex-1 h-px bg-dtu-200/50" />
-                <span className="text-caption text-gray-400 font-medium">
+              <motion.div 
+                className="flex items-center gap-3 mb-5"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <span className="badge bg-dtu-red-700 text-white border-dtu-red-800 text-caption font-bold px-3.5 py-1">{year}</span>
+                <div className="flex-1 h-px bg-red-300/50" />
+                <span className="text-caption text-neutral-400 font-medium">
                   {yearPubs.length} {yearPubs.length > 1 ? t('pub.papers') : t('pub.paper')}
                 </span>
-              </div>
+              </motion.div>
 
               {/* Cards */}
               <div className="space-y-3">
@@ -150,13 +182,18 @@ function Publications() {
                     : ''
 
                   return (
-                    <div
+                    <motion.div
                       key={index}
-                      className={`reveal reveal-delay-${Math.min(index + 1, 4)} pub-card`}
+                      className="pub-card"
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: '-50px' }}
+                      transition={{ duration: 0.4, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                      whileHover={{ x: 3 }}
                     >
-                      <p className="text-body-sm text-gray-600 leading-relaxed mb-3">
-                        <span className="font-semibold text-dtu-900">{firstAuthor}</span>
-                        <span className="text-gray-400">{restAuthors}</span>
+                      <p className="text-body-sm text-gray-700 leading-relaxed mb-3">
+                        <span className="font-semibold text-gray-900">{firstAuthor}</span>
+                        <span className="text-gray-600">{restAuthors}</span>
                         {' '}{pub.title}.
                       </p>
 
@@ -165,7 +202,7 @@ function Publications() {
                           {pub.journal}
                         </span>
                         {pub.volume && (
-                          <span className="text-caption text-gray-400">
+                          <span className="text-caption text-gray-600">
                             {pub.volume}{pub.pages ? `, ${pub.pages}` : ''} ({pub.year})
                           </span>
                         )}
@@ -174,13 +211,14 @@ function Publications() {
                             href={pub.doi}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-caption text-dtu-500 hover:text-dtu-700 font-semibold transition-colors"
+                            className="inline-flex items-center gap-1.5 text-caption text-dtu-red-600 hover:text-dtu-red-700 font-semibold transition-colors bg-red-50 hover:bg-red-100 px-2.5 py-1 rounded-full"
                           >
-                            DOI <ArrowRight className="w-2.5 h-2.5" />
+                            <ExternalLink className="w-3 h-3" />
+                            DOI
                           </a>
                         )}
                       </div>
-                    </div>
+                    </motion.div>
                   )
                 })}
               </div>

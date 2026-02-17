@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
-import { useLanguage } from '../contexts/LanguageContext'
+import { motion } from 'framer-motion'
+import { useLanguage } from '../contexts/useLanguage'
 
 /* ═══ DATA ═══ */
 const newsItems = [
@@ -21,90 +21,125 @@ const newsItems = [
 const getYear = (date: string) => date.match(/\d{4}/)?.[0] || ''
 const getMonth = (date: string) => date.replace(/\s*\d{4}/, '').trim()
 
+// Pre-process data to add showYear flag
+interface NewsItemWithFlag {
+  date: string
+  title: string
+  description: string
+  year: string
+  month: string
+  showYear: boolean
+}
+
+const processedNewsItems: NewsItemWithFlag[] = (() => {
+  let lastYear = ''
+  return newsItems.map((item) => {
+    const year = getYear(item.date)
+    const month = getMonth(item.date)
+    const showYear = year !== lastYear
+    if (showYear) {
+      lastYear = year
+    }
+    return {
+      ...item,
+      year,
+      month,
+      showYear,
+    }
+  })
+})()
+
 /* ═══ COMPONENT ═══ */
 function News() {
   const { t } = useLanguage()
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target) }
-      }),
-      { threshold: 0.06, rootMargin: '0px 0px -30px 0px' }
-    )
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
-  }, [])
-
-  let lastYear = ''
-
   return (
     <div>
       {/* ═══ HEADER ═══ */}
-      <section className="bg-gradient-to-br from-dtu-950 via-dtu-900 to-dtu-800">
+      <section className="bg-gradient-to-br from-dtu-red-800 via-dtu-red-700 to-dtu-red-600">
         <div className="container-content py-14 md:py-18">
-          <h1 className="text-h1 text-white mb-2">{t('news.title')}</h1>
-          <p className="text-body text-white/50 max-w-lg">
+          <motion.h1 
+            className="text-h1 text-white mb-2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {t('news.title')}
+          </motion.h1>
+          <motion.p 
+            className="text-body text-white/90 max-w-lg drop-shadow-md"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          >
             {t('news.subtitle')}
-          </p>
+          </motion.p>
         </div>
       </section>
 
       {/* ═══ TIMELINE ═══ */}
       <section className="container-content py-14">
         <div className="relative max-w-narrow mx-auto">
-          {/* Vertical line */}
-          <div className="absolute left-[23px] sm:left-[55px] top-8 bottom-8 w-px bg-gradient-to-b from-dtu-200 via-dtu-200 to-transparent hidden sm:block" />
+          {/* Vertical line - Mobile: left 20px, Desktop: left 55px */}
+          <div className="absolute left-[20px] sm:left-[55px] top-8 bottom-8 w-px bg-gradient-to-b from-red-300 via-red-300 to-transparent" />
 
           <div className="space-y-0">
-            {newsItems.map((item, index) => {
-              const year = getYear(item.date)
-              const month = getMonth(item.date)
-              const showYear = year !== lastYear
-              lastYear = year
+            {processedNewsItems.map((item, index) => (
+              <div key={index}>
+                {/* Year pill */}
+                {item.showYear && (
+                  <motion.div 
+                    className="flex items-center gap-3 mb-5 mt-8 first:mt-0"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-50px' }}
+                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <span className="badge bg-dtu-red-700 text-white border-dtu-red-800 text-caption font-bold px-3.5 py-1 z-10">
+                      {item.year}
+                    </span>
+                    <div className="flex-1 h-px bg-gradient-to-r from-red-300 to-transparent" />
+                  </motion.div>
+                )}
 
-              return (
-                <div key={index}>
-                  {/* Year pill */}
-                  {showYear && (
-                    <div className="reveal flex items-center gap-3 mb-5 mt-8 first:mt-0">
-                      <span className="badge badge-maroon text-caption font-bold px-3.5 py-1 z-10">
-                        {year}
-                      </span>
-                      <div className="flex-1 h-px bg-gradient-to-r from-dtu-200 to-transparent" />
-                    </div>
-                  )}
+                {/* Timeline item */}
+                <motion.div 
+                  className="timeline-item flex group"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-50px' }}
+                  transition={{ duration: 0.4, delay: (index % 4) * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  {/* Date - Desktop only */}
+                  <div className="hidden sm:flex w-[112px] flex-shrink-0 justify-end items-start pr-5 pt-4">
+                    <span className="text-caption text-gray-600 font-medium whitespace-nowrap tracking-wide">
+                      {item.month}
+                    </span>
+                  </div>
+                  
+                  {/* Timeline dot - Both mobile & desktop */}
+                  <div className="flex-shrink-0 relative mt-[14px] sm:mt-[18px]">
+                    <div className="timeline-dot z-10" />
+                  </div>
 
-                  {/* Timeline item */}
-                  <div className={`reveal reveal-delay-${Math.min((index % 4) + 1, 4)} timeline-item flex group`}>
-                    {/* Date + dot */}
-                    <div className="hidden sm:flex w-[112px] flex-shrink-0 justify-end items-start pr-5 pt-4">
-                      <span className="text-caption text-gray-400 font-medium whitespace-nowrap tracking-wide">
-                        {month}
-                      </span>
-                    </div>
-                    <div className="hidden sm:flex flex-shrink-0 relative mt-[18px]">
-                      <div className="timeline-dot z-10" />
-                    </div>
-
-                    {/* Content */}
-                    <div className="flex-1 sm:pl-6 pb-2">
-                      <div className="p-4 rounded-xl border border-transparent group-hover:border-gray-100 group-hover:bg-white group-hover:shadow-card transition-all duration-300 ease-smooth">
-                        <span className="sm:hidden text-caption text-dtu-500 font-semibold">{item.date}</span>
-                        <h3 className="text-body font-semibold text-dtu-900 leading-snug">
-                          {item.title}
-                        </h3>
-                        {item.description && (
-                          <p className="text-body-sm text-gray-400 mt-1.5 leading-relaxed">
-                            {item.description}
-                          </p>
-                        )}
-                      </div>
+                  {/* Content */}
+                  <div className="flex-1 pl-4 sm:pl-6 pb-3">
+                    <div className="p-4 rounded-xl border border-transparent group-hover:border-neutral-100 group-hover:bg-white group-hover:shadow-card transition-all duration-300 ease-smooth">
+                      {/* Mobile: Full date, Desktop: Hidden (already show month) */}
+                      <span className="sm:hidden text-caption text-dtu-red-600 font-semibold block mb-1">{item.date}</span>
+                      <h3 className="text-body font-semibold text-gray-900 leading-snug">
+                        {item.title}
+                      </h3>
+                      {item.description && (
+                        <p className="text-body-sm text-gray-600 mt-1.5 leading-relaxed">
+                          {item.description}
+                        </p>
+                      )}
                     </div>
                   </div>
-                </div>
-              )
-            })}
+                </motion.div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Droplets, Mail, MapPin, ExternalLink, Menu, X } from 'lucide-react'
-import { useLanguage } from '../contexts/LanguageContext'
+import { useLanguage } from '../contexts/useLanguage'
 import LanguageToggle from './LanguageToggle'
 
 interface LayoutProps {
@@ -23,7 +23,11 @@ function Layout({ children }: LayoutProps) {
 
   // Close mobile menu on route change
   useEffect(() => {
-    setMobileOpen(false)
+    // Close menu when route changes using requestAnimationFrame to avoid cascading renders
+    const rafId = requestAnimationFrame(() => {
+      setMobileOpen(false)
+    })
+    return () => cancelAnimationFrame(rafId)
   }, [location.pathname])
 
   const isActive = (path: string) => {
@@ -38,48 +42,47 @@ function Layout({ children }: LayoutProps) {
     { path: '/news', label: t('nav.news'), internal: true },
     { path: '/publications', label: t('nav.publications'), internal: true },
     { path: 'https://cee.duytan.edu.vn/', label: t('nav.cee'), internal: false },
-    { path: 'https://duytan.edu.vn/', label: t('nav.dtu'), internal: false },
   ]
 
   return (
     <div className="min-h-screen bg-surface-1 flex flex-col">
       {/* ═══ HEADER ═══ */}
       <header
-        className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled
-          ? 'bg-dtu-900/95 backdrop-blur-xl shadow-hero'
-          : 'bg-gradient-to-r from-dtu-950 via-dtu-900 to-dtu-800'
+        className={`sticky top-0 z-50 transition-all duration-300 border-b ${isScrolled
+          ? 'bg-white/95 backdrop-blur-xl shadow-lg border-gray-200'
+          : 'bg-white border-gray-100'
           }`}
       >
         <div className="container-content py-4">
           <div className="flex items-center justify-between">
             {/* Logo + Group Name */}
             <Link to="/" className="flex items-center gap-3 group" style={{ textDecoration: 'none' }}>
-              <div className="w-10 h-10 rounded-xl glass flex items-center justify-center group-hover:bg-white/[0.12] transition-all duration-300">
-                <Droplets className="w-5 h-5 text-dtu-300" />
+              <div className="w-10 h-10 rounded-xl bg-dtu-red-600 flex items-center justify-center group-hover:bg-dtu-red-700 transition-all duration-300 shadow-md">
+                <Droplets className="w-5 h-5 text-white" />
               </div>
               <div className="hidden sm:block">
-                <div className="text-white font-bold text-body-lg tracking-tight leading-tight">
+                <div className="text-gray-900 font-bold text-body-lg tracking-tight leading-tight">
                   {t('header.groupName')}
                 </div>
-                <div className="text-dtu-300/80 text-caption font-medium tracking-wide uppercase">
+                <div className="text-dtu-red-600 text-caption font-semibold tracking-wide uppercase">
                   {t('header.university')}
                 </div>
               </div>
               <div className="sm:hidden">
-                <div className="text-white font-bold text-body tracking-tight">
+                <div className="text-gray-900 font-bold text-body tracking-tight">
                   {t('header.groupShort')}
                 </div>
               </div>
             </Link>
 
             {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-1">
+            <nav className="hidden md:flex items-center gap-3" role="navigation" aria-label="Main navigation">
               {navItems.map((item) =>
                 item.internal ? (
                   <Link
                     key={item.path}
                     to={item.path}
-                    className={`nav-link px-4 py-2.5 rounded-lg hover:bg-white/[0.06] ${isActive(item.path) ? 'active text-white' : ''
+                    className={`px-4 py-2 rounded-lg text-gray-700 font-semibold text-body-sm tracking-wide hover:text-dtu-red-600 hover:bg-red-50 transition-all min-h-[44px] flex items-center ${isActive(item.path) ? 'text-dtu-red-600 bg-red-50' : ''
                       }`}
                     style={{ textDecoration: 'none' }}
                   >
@@ -91,40 +94,30 @@ function Layout({ children }: LayoutProps) {
                     href={item.path}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="nav-link px-4 py-2.5 rounded-lg hover:bg-white/[0.06] inline-flex items-center gap-1"
+                    className="px-4 py-2 rounded-lg text-gray-600 font-semibold text-body-sm tracking-wide hover:text-dtu-red-600 hover:bg-red-50 transition-all min-h-[44px] flex items-center gap-1.5"
                     style={{ textDecoration: 'none' }}
                   >
                     {item.label}
-                    <ExternalLink className="w-3 h-3 opacity-40" />
+                    <ExternalLink className="w-3.5 h-3.5 opacity-50" />
                   </a>
                 )
               )}
-            </div>
+            </nav>
 
-            {/* Right side: Language Toggle + DTU Logo + Mobile menu button */}
-            <div className="flex items-center gap-3">
-              <LanguageToggle />
+            {/* Right side: Language Toggle + Mobile menu button */}
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="hidden sm:block">
+                <LanguageToggle />
+              </div>
 
-              <a
-                href="https://duytan.edu.vn"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden lg:flex items-center"
-              >
-                <img
-                  src="/5.Duy-Tan.jpg"
-                  alt="Duy Tan University"
-                  className="h-8 rounded object-contain opacity-70 hover:opacity-100 transition-opacity"
-                />
-              </a>
-
-              {/* Mobile hamburger */}
+              {/* Mobile hamburger - Increased touch target */}
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="md:hidden p-2 rounded-lg text-white/70 hover:text-white hover:bg-white/[0.08] transition-all"
+                className="md:hidden p-3 rounded-lg text-gray-600 hover:text-dtu-red-600 hover:bg-red-50 transition-all min-w-[44px] min-h-[44px] flex items-center justify-center"
                 aria-label="Toggle menu"
+                aria-expanded={mobileOpen}
               >
-                {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
             </div>
           </div>
@@ -132,21 +125,24 @@ function Layout({ children }: LayoutProps) {
 
         {/* ═══ MOBILE NAV ═══ */}
         <div
-          className={`md:hidden overflow-hidden transition-all duration-300 ease-smooth ${mobileOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
+          className={`md:hidden overflow-hidden transition-all duration-300 ease-smooth bg-white border-b border-gray-200 ${mobileOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
             }`}
+          role="navigation"
+          aria-label="Mobile navigation"
         >
-          <div className="container-content pb-4 pt-2 space-y-1">
-            {navItems.map((item) =>
+          <div className="container-content py-3 space-y-1">
+            {navItems.map((item, index) =>
               item.internal ? (
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`block px-4 py-2.5 rounded-lg text-body-sm font-medium transition-colors ${isActive(item.path)
-                    ? 'bg-white/[0.1] text-white'
-                    : 'text-white/60 hover:text-white hover:bg-white/[0.06]'
+                  className={`flex items-center gap-3 px-4 py-3.5 rounded-lg text-body font-semibold transition-all min-h-[48px] text-gray-700 ${isActive(item.path)
+                    ? 'bg-red-50 text-dtu-red-600'
+                    : 'hover:bg-gray-50'
                     }`}
-                  style={{ textDecoration: 'none' }}
+                  style={{ textDecoration: 'none', animationDelay: `${index * 50}ms` }}
                 >
+                  <span className="w-2 h-2 rounded-full bg-dtu-red-500 shadow-sm"></span>
                   {item.label}
                 </Link>
               ) : (
@@ -155,11 +151,11 @@ function Layout({ children }: LayoutProps) {
                   href={item.path}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-body-sm font-medium text-white/60 hover:text-white hover:bg-white/[0.06] transition-colors"
+                  className="flex items-center gap-3 px-4 py-3.5 rounded-lg text-body font-semibold text-gray-700 hover:bg-gray-50 transition-all min-h-[48px]"
                   style={{ textDecoration: 'none' }}
                 >
+                  <ExternalLink className="w-4 h-4 text-gray-400" />
                   {item.label}
-                  <ExternalLink className="w-3 h-3 opacity-40" />
                 </a>
               )
             )}
@@ -173,21 +169,21 @@ function Layout({ children }: LayoutProps) {
       </main>
 
       {/* ═══ FOOTER ═══ */}
-      <footer className="bg-dtu-950 text-white/60 mt-auto">
+      <footer className="bg-gray-900 text-white/80 mt-auto">
         {/* Top border accent */}
-        <div className="h-px bg-gradient-to-r from-transparent via-dtu-400/30 to-transparent" />
+        <div className="h-px bg-gradient-to-r from-transparent via-dtu-red-500/40 to-transparent" />
 
         <div className="container-content py-14">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
             {/* Col 1 — Brand */}
             <div>
               <div className="flex items-center gap-2.5 mb-4">
-                <div className="w-8 h-8 rounded-lg bg-dtu-800/50 flex items-center justify-center">
-                  <Droplets className="w-4 h-4 text-dtu-400" />
+                <div className="w-8 h-8 rounded-lg bg-dtu-red-800/50 flex items-center justify-center">
+                  <Droplets className="w-4 h-4 text-dtu-red-400" />
                 </div>
                 <span className="text-white font-semibold text-body">{t('footer.groupName')}</span>
               </div>
-              <p className="text-body-sm text-white/40 leading-relaxed max-w-xs">
+              <p className="text-body-sm text-white/85 leading-relaxed max-w-xs">
                 {t('footer.description')}
               </p>
             </div>
@@ -207,7 +203,7 @@ function Layout({ children }: LayoutProps) {
                   <li key={link.to}>
                     <Link
                       to={link.to}
-                      className="text-body-sm text-white/40 hover:text-dtu-300 transition-colors"
+                      className="text-body-sm text-white/80 hover:text-dtu-red-300 transition-colors"
                       style={{ textDecoration: 'none' }}
                     >
                       {link.label}
@@ -219,7 +215,7 @@ function Layout({ children }: LayoutProps) {
                     href="https://scholar.google.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-body-sm text-white/40 hover:text-dtu-300 transition-colors inline-flex items-center gap-1"
+                    className="text-body-sm text-white/80 hover:text-dtu-red-300 transition-colors inline-flex items-center gap-1"
                     style={{ textDecoration: 'none' }}
                   >
                     Google Scholar <ExternalLink className="w-3 h-3" />
@@ -233,13 +229,13 @@ function Layout({ children }: LayoutProps) {
               <h4 className="text-white font-semibold text-body-sm uppercase tracking-wider mb-4">
                 {t('footer.contact')}
               </h4>
-              <ul className="space-y-3 text-body-sm text-white/40">
+              <ul className="space-y-3 text-body-sm text-white/80">
                 <li className="flex items-start gap-2.5">
-                  <MapPin className="w-4 h-4 mt-0.5 text-dtu-400/60 flex-shrink-0" />
+                  <MapPin className="w-4 h-4 mt-0.5 text-dtu-red-400 flex-shrink-0" />
                   <span>{t('footer.address')}<br />{t('footer.location')}</span>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <Mail className="w-4 h-4 text-dtu-400/60 flex-shrink-0" />
+                  <Mail className="w-4 h-4 text-dtu-red-400 flex-shrink-0" />
                   <span>research@duytan.edu.vn</span>
                 </li>
               </ul>
@@ -248,10 +244,10 @@ function Layout({ children }: LayoutProps) {
 
           {/* Bottom bar */}
           <div className="mt-12 pt-6 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p className="text-caption text-white/30">
+            <p className="text-caption text-white/70">
               {t('footer.copyright')}
             </p>
-            <p className="text-caption text-white/20">
+            <p className="text-caption text-white/60">
               {t('footer.rights')}
             </p>
           </div>
