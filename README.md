@@ -17,7 +17,6 @@
 - **Tailwind CSS** — Utility-first styling with custom design tokens
 - **Framer Motion** — Production-grade animations
 - **React Router DOM** — Client-side SPA routing
-- **shadcn/ui** — Accessible component library
 
 ## 🚀 Getting Started
 
@@ -68,9 +67,7 @@ src/
 │   ├── LanguageToggle.tsx   # Language switch
 │   ├── PageTransition.tsx   # Route animations
 │   ├── BackToTop.tsx        # Scroll-to-top
-│   ├── ReadingProgress.tsx  # Progress bar
-│   ├── Skeleton.tsx         # Loading skeletons
-│   └── ui/                  # shadcn/ui library
+│   └── ReadingProgress.tsx  # Progress bar
 ├── pages/                   # Route pages
 │   ├── Home.tsx             # Research overview
 │   ├── People.tsx           # Team members

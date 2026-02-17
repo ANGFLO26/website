@@ -22,6 +22,10 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
         } catch { /* ignore localStorage errors */ }
         return 'en'
     })
+    useEffect(() => {
+        document.documentElement.lang = language
+    }, [language])
+
 
     useEffect(() => {
         try {

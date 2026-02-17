@@ -65,7 +65,7 @@ function Publications() {
         <div className="container-content py-14 md:py-18">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5">
             <div>
-              <motion.h1 
+              <motion.h1
                 className="text-h1 text-white mb-2"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -73,7 +73,7 @@ function Publications() {
               >
                 {t('pub.title')}
               </motion.h1>
-              <motion.p 
+              <motion.p
                 className="text-body text-white/90 max-w-lg drop-shadow-md"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -102,21 +102,22 @@ function Publications() {
           </div>
 
           {/* Stats bar */}
-          <motion.div 
-            className="flex flex-wrap gap-2.5 mt-6"
+          <motion.div
+            className="flex flex-wrap gap-3 mt-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span className="badge bg-white/[0.12] text-white/95 border-white/[0.2]">
-              <FileText className="w-3 h-3" />
+            <span className="badge bg-white/[0.15] text-white border-white/[0.2] px-3.5 py-1.5 text-body-sm font-semibold">
+              <FileText className="w-3.5 h-3.5" />
               {publications.length + inPreparation.length} {t('pub.papers')}
             </span>
-            <span className="badge bg-white/[0.12] text-white/95 border-white/[0.2]">
+            <span className="badge bg-white/[0.15] text-white border-white/[0.2] px-3.5 py-1.5 text-body-sm font-semibold">
+              <BookOpen className="w-3.5 h-3.5" />
               {uniqueJournals.size} {t('pub.journals')}
             </span>
-            <span className="badge bg-white/[0.12] text-white/95 border-white/[0.2]">
-              {years[years.length - 1]}–{years[0]}
+            <span className="badge bg-white/[0.15] text-white border-white/[0.2] px-3.5 py-1.5 text-body-sm font-semibold">
+              📅 {years[years.length - 1]}–{years[0]}
             </span>
           </motion.div>
         </div>
@@ -124,7 +125,7 @@ function Publications() {
 
       <div className="container-content py-14">
         {/* ═══ IN PREPARATION ═══ */}
-        <motion.div 
+        <motion.div
           className="mb-10"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -136,8 +137,8 @@ function Publications() {
             <div className="flex-1 h-px bg-neutral-200" />
           </div>
           {inPreparation.map((pub, i) => (
-            <motion.div 
-              key={i} 
+            <motion.div
+              key={i}
               className="pub-card opacity-75"
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 0.75, x: 0 }}
@@ -155,11 +156,11 @@ function Publications() {
         {/* ═══ BY YEAR ═══ */}
         {years.map((year) => {
           const yearPubs = publications.filter((p) => p.year === year)
-          
+
           return (
             <div key={year} className="mb-10">
               {/* Year divider */}
-              <motion.div 
+              <motion.div
                 className="flex items-center gap-3 mb-5"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}

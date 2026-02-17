@@ -13,7 +13,6 @@ Website for the **Interfacial Water Group** research group at Duy Tan University
 | Tailwind CSS + Custom CSS | Styling & design tokens |
 | Framer Motion | Animations & page transitions |
 | React Router DOM | Client-side routing (BrowserRouter) |
-| shadcn/ui | Reusable UI component library |
 | Lucide React | Icon system |
 | Custom i18n (React Context) | Internationalization (EN/VI) |
 
@@ -30,7 +29,6 @@ website/
 ├── tsconfig.node.json          # TS config for node tooling
 ├── postcss.config.js           # PostCSS (Tailwind + autoprefixer)
 ├── eslint.config.js            # ESLint configuration
-├── components.json             # shadcn/ui configuration
 ├── package.json                # Dependencies & scripts
 │
 ├── src/
@@ -52,9 +50,7 @@ website/
 │   │   ├── LanguageToggle.tsx  # EN/VI switch button with slide animation
 │   │   ├── PageTransition.tsx  # AnimatePresence wrapper for route transitions
 │   │   ├── BackToTop.tsx       # Floating scroll-to-top button (appears >500px)
-│   │   ├── ReadingProgress.tsx # Top reading progress bar (red gradient)
-│   │   ├── Skeleton.tsx        # Loading skeleton variants (card, profile, pub, timeline)
-│   │   └── ui/                 # shadcn/ui components (50+ files)
+│   │   └── ReadingProgress.tsx # Top reading progress bar (red gradient)
 │   │
 │   ├── pages/
 │   │   ├── Home.tsx            # Hero + Profile + Research Goals + Methods + Current Research
@@ -63,9 +59,7 @@ website/
 │   │   └── Publications.tsx    # Publication list grouped by year
 │   │
 │   ├── hooks/
-│   │   ├── useScrollAnimation.ts  # IntersectionObserver + smooth scroll hooks
-│   │   ├── useReveal.ts           # Scroll-triggered reveal animations
-│   │   └── use-mobile.ts         # Mobile breakpoint detection (768px)
+│   │   └── useScrollAnimation.ts  # IntersectionObserver + smooth scroll hooks
 │   │
 │   └── lib/
 │       └── utils.ts            # cn() helper (clsx + tailwind-merge)

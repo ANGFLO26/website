@@ -57,7 +57,7 @@ function People() {
       {/* ═══ HEADER ═══ */}
       <section className="bg-gradient-to-br from-dtu-red-800 via-dtu-red-700 to-dtu-red-600 -mt-0">
         <div className="container-content py-14 md:py-18">
-          <motion.h1 
+          <motion.h1
             className="text-h1 text-white mb-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -65,7 +65,7 @@ function People() {
           >
             {t('people.title')}
           </motion.h1>
-          <motion.p 
+          <motion.p
             className="text-body text-white/90 max-w-lg mb-6 drop-shadow-md"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -73,7 +73,7 @@ function People() {
           >
             {t('people.subtitle')}
           </motion.p>
-          <motion.div 
+          <motion.div
             className="flex flex-wrap gap-2.5"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -102,20 +102,25 @@ function People() {
                 transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -6 }}
               >
-                {/* Avatar với gradient pattern */}
+                {/* Avatar with geometric pattern */}
                 <div className="avatar-ring w-fit mx-auto mb-5 group-hover:scale-105 transition-transform duration-300">
-                  <div 
-                    className="w-20 h-20 flex items-center justify-center text-white font-bold text-body-lg relative overflow-hidden"
+                  <div
+                    className="w-24 h-24 flex items-center justify-center text-white font-extrabold text-xl relative overflow-hidden"
                     style={{
                       background: `linear-gradient(135deg, ${member.roleType === 'Professor' ? '#C8102E' : member.roleType === 'Research Scholar' ? '#DC2626' : member.roleType === 'PhD Student' ? '#991B1B' : '#D97706'} 0%, ${member.roleType === 'Professor' ? '#7F1D1D' : member.roleType === 'Research Scholar' ? '#B91C1C' : member.roleType === 'PhD Student' ? '#7F1D1D' : '#B45309'} 100%)`
                     }}
                   >
-                    {/* Pattern overlay */}
-                    <div className="absolute inset-0 opacity-20" style={{
-                      backgroundImage: `radial-gradient(circle at 30% 30%, white 1px, transparent 1px)`,
-                      backgroundSize: '8px 8px'
+                    {/* Geometric pattern overlay */}
+                    <div className="absolute inset-0 opacity-[0.12]" style={{
+                      backgroundImage: `radial-gradient(circle at 25% 25%, white 1.5px, transparent 1.5px), radial-gradient(circle at 75% 75%, white 1px, transparent 1px)`,
+                      backgroundSize: '12px 12px, 8px 8px'
                     }} />
-                    <span className="relative z-10">{member.initials}</span>
+                    {/* Diagonal accent line */}
+                    <div className="absolute inset-0 opacity-[0.06]" style={{
+                      backgroundImage: 'linear-gradient(135deg, white 25%, transparent 25%, transparent 50%, white 50%, white 55%, transparent 55%)',
+                      backgroundSize: '20px 20px'
+                    }} />
+                    <span className="relative z-10 tracking-wide drop-shadow-sm">{member.initials}</span>
                   </div>
                 </div>
                 <h3 className="text-h3 text-gray-900 mb-0.5 group-hover:text-dtu-red-700 transition-colors">{member.name}</h3>
@@ -143,8 +148,8 @@ function People() {
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {alumni2015.map((m, i) => (
-              <motion.div 
-                key={i} 
+              <motion.div
+                key={i}
                 className="card-flat flex items-center gap-4 p-4"
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -178,8 +183,8 @@ function People() {
             </motion.div>
             <div className="space-y-1">
               {alumni2009.map((m, i) => (
-                <motion.div 
-                  key={i} 
+                <motion.div
+                  key={i}
                   className="flex items-center gap-3 py-2.5 px-3 rounded-lg hover:bg-surface-2 transition-colors text-body-sm group"
                   initial={{ opacity: 0, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -206,8 +211,8 @@ function People() {
             </motion.div>
             <div className="space-y-1">
               {visitingStudents.map((s, i) => (
-                <motion.div 
-                  key={i} 
+                <motion.div
+                  key={i}
                   className="flex items-center gap-3 py-2.5 px-3 rounded-lg hover:bg-surface-2 transition-colors text-body-sm group"
                   initial={{ opacity: 0, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}

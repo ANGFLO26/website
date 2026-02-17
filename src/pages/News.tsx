@@ -1,6 +1,16 @@
 import { motion } from 'framer-motion'
 import { useLanguage } from '../contexts/useLanguage'
 
+/* ═══ CATEGORY ICONS ═══ */
+const getNewsIcon = (title: string): string => {
+  const lower = title.toLowerCase()
+  if (lower.includes('defended') || lower.includes('thesis')) return '🎓'
+  if (lower.includes('scholarship') || lower.includes('goldwater')) return '🏅'
+  if (lower.includes('paper') || lower.includes('highlighted')) return '📄'
+  if (lower.includes('candidate') || lower.includes('prize') || lower.includes('award') || lower.includes('wins') || lower.includes('receives')) return '🏆'
+  return '📌'
+}
+
 /* ═══ DATA ═══ */
 const newsItems = [
   { date: 'April 2025', title: 'Minh receives an award from the Water Research Fund.', description: 'This award supports his research on cohesive fine-grained sediment-biopolymer mixtures.' },
@@ -58,7 +68,7 @@ function News() {
       {/* ═══ HEADER ═══ */}
       <section className="bg-gradient-to-br from-dtu-red-800 via-dtu-red-700 to-dtu-red-600">
         <div className="container-content py-14 md:py-18">
-          <motion.h1 
+          <motion.h1
             className="text-h1 text-white mb-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -66,7 +76,7 @@ function News() {
           >
             {t('news.title')}
           </motion.h1>
-          <motion.p 
+          <motion.p
             className="text-body text-white/90 max-w-lg drop-shadow-md"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -88,7 +98,7 @@ function News() {
               <div key={index}>
                 {/* Year pill */}
                 {item.showYear && (
-                  <motion.div 
+                  <motion.div
                     className="flex items-center gap-3 mb-5 mt-8 first:mt-0"
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -103,7 +113,7 @@ function News() {
                 )}
 
                 {/* Timeline item */}
-                <motion.div 
+                <motion.div
                   className="timeline-item flex group"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -116,7 +126,7 @@ function News() {
                       {item.month}
                     </span>
                   </div>
-                  
+
                   {/* Timeline dot - Both mobile & desktop */}
                   <div className="flex-shrink-0 relative mt-[14px] sm:mt-[18px]">
                     <div className="timeline-dot z-10" />
@@ -128,6 +138,7 @@ function News() {
                       {/* Mobile: Full date, Desktop: Hidden (already show month) */}
                       <span className="sm:hidden text-caption text-dtu-red-600 font-semibold block mb-1">{item.date}</span>
                       <h3 className="text-body font-semibold text-gray-900 leading-snug">
+                        <span className="mr-1.5">{getNewsIcon(item.title)}</span>
                         {item.title}
                       </h3>
                       {item.description && (

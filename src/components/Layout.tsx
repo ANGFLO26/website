@@ -106,9 +106,7 @@ function Layout({ children }: LayoutProps) {
 
             {/* Right side: Language Toggle + Mobile menu button */}
             <div className="flex items-center gap-2 sm:gap-3">
-              <div className="hidden sm:block">
-                <LanguageToggle />
-              </div>
+              <LanguageToggle />
 
               {/* Mobile hamburger - Increased touch target */}
               <button

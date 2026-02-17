@@ -71,7 +71,7 @@ function Home() {
   const handleToggleMethods = () => {
     const willShow = !showMethods
     setShowMethods(willShow)
-    
+
     if (willShow && methodsRef.current) {
       setTimeout(() => {
         scrollToRef(methodsRef, 100)
@@ -85,17 +85,17 @@ function Home() {
       <section className="relative bg-gradient-to-br from-dtu-red-800 via-dtu-red-700 to-dtu-red-600 overflow-hidden">
         {/* Animated background elements */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <motion.div 
+          <motion.div
             className="absolute -top-32 -right-32 w-96 h-96 bg-red-400/[0.04] rounded-full blur-3xl"
-            animate={{ 
+            animate={{
               scale: [1, 1.1, 1],
               opacity: [0.04, 0.06, 0.04]
             }}
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           />
-          <motion.div 
+          <motion.div
             className="absolute -bottom-24 -left-24 w-72 h-72 bg-red-300/[0.03] rounded-full blur-2xl"
-            animate={{ 
+            animate={{
               scale: [1, 1.15, 1],
               opacity: [0.03, 0.05, 0.03]
             }}
@@ -127,33 +127,26 @@ function Home() {
             </div>
           </div>
         </div>
+
+        {/* Smooth wave transition */}
+        <div className="absolute bottom-0 left-0 right-0 translate-y-px">
+          <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto block" preserveAspectRatio="none">
+            <path d="M0,40 C360,0 720,60 1080,20 C1260,5 1380,30 1440,40 L1440,60 L0,60 Z" fill="#FAFBFC" />
+          </svg>
+        </div>
       </section>
 
       {/* ═══ PROFILE CARD ═══ */}
       <section className="container-content -mt-6 relative z-10 mb-16">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="card p-0 overflow-visible"
         >
           <div className="p-6 sm:p-7 md:p-9">
-            {/* Mobile: Stack layout với Group Photo ở top */}
+            {/* Profile layout */}
             <div className="flex flex-col lg:flex-row gap-6 lg:gap-9 items-center lg:items-start">
-              
-              {/* Mobile/Tablet: Group Photo ở trên */}
-              <div className="flex-shrink-0 lg:hidden w-full">
-                <div className="relative w-full max-w-[280px] mx-auto">
-                  <img
-                    src="/asset_2.jpg"
-                    alt="Research Group"
-                    className="w-full aspect-square rounded-2xl object-cover shadow-elevated"
-                  />
-                  <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-white rounded-full px-4 py-1.5 shadow-card border border-gray-100">
-                    <span className="text-caption font-semibold text-dtu-red-600">Research Team</span>
-                  </div>
-                </div>
-              </div>
 
               {/* Personal Photo */}
               <div className="flex-shrink-0 order-2 lg:order-1">
@@ -233,7 +226,7 @@ function Home() {
             className="section-heading w-full cursor-pointer group"
           >
             <span className="text-gray-900 group-hover:text-dtu-red-700 transition-colors">{t('home.methods')}</span>
-            <motion.span 
+            <motion.span
               className="flex-shrink-0 ml-auto w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center group-hover:bg-red-100 transition-colors"
               animate={{ rotate: showMethods ? 180 : 0 }}
               transition={{ duration: 0.3 }}
@@ -244,7 +237,7 @@ function Home() {
 
           <AnimatePresence mode="wait">
             {!showMethods ? (
-              <motion.div 
+              <motion.div
                 key="summary"
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
@@ -305,8 +298,7 @@ function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-50px' }}
                   transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                  className="card card-gradient-top p-6 cursor-pointer"
-                  onClick={() => setExpandedArea(isExpanded ? null : index)}
+                  className="card card-gradient-top p-6"
                   whileHover={{ y: -4 }}
                 >
                   {/* Icon + Title */}
@@ -341,11 +333,14 @@ function Home() {
                   </div>
 
                   {/* CTA */}
-                  <div className={`flex items-center gap-1 text-caption font-semibold transition-colors ${isExpanded ? 'text-dtu-red-600' : 'text-dtu-red-500 hover:text-dtu-red-700'
-                    }`}>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setExpandedArea(isExpanded ? null : index) }}
+                    className={`flex items-center gap-1 text-caption font-semibold transition-colors cursor-pointer ${isExpanded ? 'text-dtu-red-600' : 'text-dtu-red-500 hover:text-dtu-red-700'
+                      }`}
+                  >
                     {isExpanded ? t('home.showLess') : t('home.readMore')}
                     <ArrowRight className={`w-3 h-3 transition-transform duration-300 ${isExpanded ? 'rotate-90' : ''}`} />
-                  </div>
+                  </button>
                 </motion.div>
               )
             })}
