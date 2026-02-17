@@ -28,11 +28,6 @@ dist-ssr
 .env.local
 .env.*.local
 
-# Dependencies
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
-
 # Build output
 build/
 out/
@@ -47,3 +42,4 @@ coverage/
 # Temporary files
 *.tmp
 *.temp
+.~*
