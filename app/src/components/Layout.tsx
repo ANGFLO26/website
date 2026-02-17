@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Droplets, Mail, MapPin, ExternalLink, Menu, X } from 'lucide-react'
+import { useLanguage } from '../contexts/LanguageContext'
+import LanguageToggle from './LanguageToggle'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -10,6 +12,7 @@ function Layout({ children }: LayoutProps) {
   const location = useLocation()
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const { t } = useLanguage()
 
   // Sticky nav on scroll
   useEffect(() => {
@@ -30,12 +33,12 @@ function Layout({ children }: LayoutProps) {
   }
 
   const navItems = [
-    { path: '/', label: 'Research', internal: true },
-    { path: '/people', label: 'People', internal: true },
-    { path: '/news', label: 'News', internal: true },
-    { path: '/publications', label: 'Publications', internal: true },
-    { path: 'https://cee.duytan.edu.vn/', label: 'CEE', internal: false },
-    { path: 'https://duytan.edu.vn/', label: 'DTU', internal: false },
+    { path: '/', label: t('nav.research'), internal: true },
+    { path: '/people', label: t('nav.people'), internal: true },
+    { path: '/news', label: t('nav.news'), internal: true },
+    { path: '/publications', label: t('nav.publications'), internal: true },
+    { path: 'https://cee.duytan.edu.vn/', label: t('nav.cee'), internal: false },
+    { path: 'https://duytan.edu.vn/', label: t('nav.dtu'), internal: false },
   ]
 
   return (
@@ -43,8 +46,8 @@ function Layout({ children }: LayoutProps) {
       {/* ═══ HEADER ═══ */}
       <header
         className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled
-            ? 'bg-dtu-900/95 backdrop-blur-xl shadow-hero'
-            : 'bg-gradient-to-r from-dtu-950 via-dtu-900 to-dtu-800'
+          ? 'bg-dtu-900/95 backdrop-blur-xl shadow-hero'
+          : 'bg-gradient-to-r from-dtu-950 via-dtu-900 to-dtu-800'
           }`}
       >
         <div className="container-content py-4">
@@ -56,15 +59,15 @@ function Layout({ children }: LayoutProps) {
               </div>
               <div className="hidden sm:block">
                 <div className="text-white font-bold text-body-lg tracking-tight leading-tight">
-                  Interfacial Water Group
+                  {t('header.groupName')}
                 </div>
                 <div className="text-dtu-300/80 text-caption font-medium tracking-wide uppercase">
-                  Duy Tan University
+                  {t('header.university')}
                 </div>
               </div>
               <div className="sm:hidden">
                 <div className="text-white font-bold text-body tracking-tight">
-                  IWG
+                  {t('header.groupShort')}
                 </div>
               </div>
             </Link>
@@ -98,8 +101,10 @@ function Layout({ children }: LayoutProps) {
               )}
             </div>
 
-            {/* Right side: DTU Logo + Mobile menu button */}
+            {/* Right side: Language Toggle + DTU Logo + Mobile menu button */}
             <div className="flex items-center gap-3">
+              <LanguageToggle />
+
               <a
                 href="https://duytan.edu.vn"
                 target="_blank"
@@ -137,8 +142,8 @@ function Layout({ children }: LayoutProps) {
                   key={item.path}
                   to={item.path}
                   className={`block px-4 py-2.5 rounded-lg text-body-sm font-medium transition-colors ${isActive(item.path)
-                      ? 'bg-white/[0.1] text-white'
-                      : 'text-white/60 hover:text-white hover:bg-white/[0.06]'
+                    ? 'bg-white/[0.1] text-white'
+                    : 'text-white/60 hover:text-white hover:bg-white/[0.06]'
                     }`}
                   style={{ textDecoration: 'none' }}
                 >
@@ -180,24 +185,24 @@ function Layout({ children }: LayoutProps) {
                 <div className="w-8 h-8 rounded-lg bg-dtu-800/50 flex items-center justify-center">
                   <Droplets className="w-4 h-4 text-dtu-400" />
                 </div>
-                <span className="text-white font-semibold text-body">Interfacial Water Group</span>
+                <span className="text-white font-semibold text-body">{t('footer.groupName')}</span>
               </div>
               <p className="text-body-sm text-white/40 leading-relaxed max-w-xs">
-                Gaining fundamental insight into the properties of liquid water at interfaces using molecular simulations and experiments.
+                {t('footer.description')}
               </p>
             </div>
 
             {/* Col 2 — Links */}
             <div>
               <h4 className="text-white font-semibold text-body-sm uppercase tracking-wider mb-4">
-                Navigation
+                {t('footer.navigation')}
               </h4>
               <ul className="space-y-2.5">
                 {[
-                  { to: '/', label: 'Research' },
-                  { to: '/people', label: 'People' },
-                  { to: '/news', label: 'News & Events' },
-                  { to: '/publications', label: 'Publications' },
+                  { to: '/', label: t('nav.research') },
+                  { to: '/people', label: t('nav.people') },
+                  { to: '/news', label: t('footer.newsEvents') },
+                  { to: '/publications', label: t('nav.publications') },
                 ].map((link) => (
                   <li key={link.to}>
                     <Link
@@ -226,12 +231,12 @@ function Layout({ children }: LayoutProps) {
             {/* Col 3 — Contact */}
             <div>
               <h4 className="text-white font-semibold text-body-sm uppercase tracking-wider mb-4">
-                Contact
+                {t('footer.contact')}
               </h4>
               <ul className="space-y-3 text-body-sm text-white/40">
                 <li className="flex items-start gap-2.5">
                   <MapPin className="w-4 h-4 mt-0.5 text-dtu-400/60 flex-shrink-0" />
-                  <span>Duy Tan University<br />Da Nang & Ho Chi Minh City, Vietnam</span>
+                  <span>{t('footer.address')}<br />{t('footer.location')}</span>
                 </li>
                 <li className="flex items-center gap-2.5">
                   <Mail className="w-4 h-4 text-dtu-400/60 flex-shrink-0" />
@@ -244,10 +249,10 @@ function Layout({ children }: LayoutProps) {
           {/* Bottom bar */}
           <div className="mt-12 pt-6 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-3">
             <p className="text-caption text-white/30">
-              © 2025 Interfacial Water Research Group · Duy Tan University
+              {t('footer.copyright')}
             </p>
             <p className="text-caption text-white/20">
-              All rights reserved
+              {t('footer.rights')}
             </p>
           </div>
         </div>

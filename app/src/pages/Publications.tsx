@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { ExternalLink, BookOpen, FileText, ArrowRight } from 'lucide-react'
+import { useLanguage } from '../contexts/LanguageContext'
 
 /* ═══ TYPES ═══ */
 interface Publication {
@@ -55,6 +56,7 @@ const journalColor = (j: string): string => {
 function Publications() {
   const years = [...new Set(publications.map((p) => p.year))].sort((a, b) => b - a)
   const uniqueJournals = new Set(publications.map((p) => p.journal))
+  const { t } = useLanguage()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -74,9 +76,9 @@ function Publications() {
         <div className="container-content py-14 md:py-18">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5">
             <div>
-              <h1 className="text-h1 text-white mb-2">Publications</h1>
+              <h1 className="text-h1 text-white mb-2">{t('pub.title')}</h1>
               <p className="text-body text-white/50 max-w-lg">
-                Peer-reviewed research from our group.
+                {t('pub.subtitle')}
               </p>
             </div>
             <a
@@ -87,7 +89,7 @@ function Publications() {
               style={{ textDecoration: 'none', color: 'white' }}
             >
               <BookOpen className="w-4 h-4" />
-              Google Scholar
+              {t('pub.googleScholar')}
               <ExternalLink className="w-3 h-3 opacity-50" />
             </a>
           </div>
@@ -96,10 +98,10 @@ function Publications() {
           <div className="flex flex-wrap gap-2.5 mt-6">
             <span className="badge bg-white/[0.08] text-white/80 border-white/[0.1]">
               <FileText className="w-3 h-3" />
-              {publications.length + inPreparation.length} papers
+              {publications.length + inPreparation.length} {t('pub.papers')}
             </span>
             <span className="badge bg-white/[0.08] text-white/80 border-white/[0.1]">
-              {uniqueJournals.size} journals
+              {uniqueJournals.size} {t('pub.journals')}
             </span>
             <span className="badge bg-white/[0.08] text-white/80 border-white/[0.1]">
               {years[years.length - 1]}–{years[0]}
@@ -112,7 +114,7 @@ function Publications() {
         {/* ═══ IN PREPARATION ═══ */}
         <div className="reveal mb-10">
           <div className="flex items-center gap-3 mb-4">
-            <span className="badge badge-accent font-bold">In Preparation</span>
+            <span className="badge badge-accent font-bold">{t('pub.inPreparation')}</span>
             <div className="flex-1 h-px bg-amber-200/50" />
           </div>
           {inPreparation.map((pub, i) => (
@@ -135,7 +137,7 @@ function Publications() {
                 <span className="badge badge-maroon text-caption font-bold px-3.5 py-1">{year}</span>
                 <div className="flex-1 h-px bg-dtu-200/50" />
                 <span className="text-caption text-gray-400 font-medium">
-                  {yearPubs.length} paper{yearPubs.length > 1 ? 's' : ''}
+                  {yearPubs.length} {yearPubs.length > 1 ? t('pub.papers') : t('pub.paper')}
                 </span>
               </div>
 

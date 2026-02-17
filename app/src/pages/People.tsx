@@ -1,13 +1,6 @@
 import { useEffect } from 'react'
 import { GraduationCap, Award, FlaskConical, BookOpen } from 'lucide-react'
-
-/* ═══ HELPERS ═══ */
-const roleMeta: Record<string, { style: string; icon: React.ElementType }> = {
-  'Professor': { style: 'bg-dtu-900 text-white border-dtu-800', icon: Award },
-  'Research Scholar': { style: 'bg-dtu-50 text-dtu-700 border-dtu-100', icon: FlaskConical },
-  'PhD Student': { style: 'bg-emerald-50 text-emerald-700 border-emerald-100', icon: GraduationCap },
-  'Undergraduate RA': { style: 'bg-amber-50 text-amber-700 border-amber-100', icon: BookOpen },
-}
+import { useLanguage } from '../contexts/LanguageContext'
 
 /* ═══ DATA ═══ */
 interface Member {
@@ -49,6 +42,16 @@ const visitingStudents = [
 
 /* ═══ COMPONENT ═══ */
 function People() {
+  const { t } = useLanguage()
+
+  /* ═══ HELPERS ═══ */
+  const roleMeta: Record<string, { style: string; icon: React.ElementType; label: string }> = {
+    'Professor': { style: 'bg-dtu-900 text-white border-dtu-800', icon: Award, label: t('people.professor') },
+    'Research Scholar': { style: 'bg-dtu-50 text-dtu-700 border-dtu-100', icon: FlaskConical, label: t('people.researchScholar') },
+    'PhD Student': { style: 'bg-emerald-50 text-emerald-700 border-emerald-100', icon: GraduationCap, label: t('people.phdStudent') },
+    'Undergraduate RA': { style: 'bg-amber-50 text-amber-700 border-amber-100', icon: BookOpen, label: t('people.undergraduateRA') },
+  }
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((e) => {
@@ -65,14 +68,14 @@ function People() {
       {/* ═══ HEADER ═══ */}
       <section className="bg-gradient-to-br from-dtu-950 via-dtu-900 to-dtu-800 -mt-0">
         <div className="container-content py-14 md:py-18">
-          <h1 className="text-h1 text-white mb-2">Our Team</h1>
+          <h1 className="text-h1 text-white mb-2">{t('people.title')}</h1>
           <p className="text-body text-white/50 max-w-lg mb-6">
-            Meet the researchers driving our mission to understand interfacial water.
+            {t('people.subtitle')}
           </p>
           <div className="flex flex-wrap gap-2.5">
-            <span className="badge badge-maroon">{currentMembers.length} Current Members</span>
-            <span className="badge bg-white/[0.08] text-white/70 border-white/[0.1]">{alumni2015.length + alumni2009.length} Alumni</span>
-            <span className="badge bg-white/[0.08] text-white/70 border-white/[0.1]">{visitingStudents.length} Visiting</span>
+            <span className="badge badge-maroon">{currentMembers.length} {t('people.currentMembers')}</span>
+            <span className="badge bg-white/[0.08] text-white/70 border-white/[0.1]">{alumni2015.length + alumni2009.length} {t('people.alumni')}</span>
+            <span className="badge bg-white/[0.08] text-white/70 border-white/[0.1]">{visitingStudents.length} {t('people.visiting')}</span>
           </div>
         </div>
       </section>
@@ -97,7 +100,7 @@ function People() {
                 <p className="text-body-sm text-gray-400 italic mb-4">{member.role}</p>
                 <span className={`badge text-caption border ${meta.style}`}>
                   <Icon className="w-3 h-3" />
-                  {member.roleType}
+                  {meta.label}
                 </span>
               </div>
             )
@@ -109,7 +112,7 @@ function People() {
       <section className="bg-surface-2 py-14">
         <div className="container-content">
           <div className="reveal">
-            <h2 className="section-heading"><span>Alumni (2015–2024)</span></h2>
+            <h2 className="section-heading"><span>{t('people.alumni2015')}</span></h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {alumni2015.map((m, i) => (
@@ -131,7 +134,7 @@ function People() {
       <section className="container-content py-14">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div className="reveal">
-            <h2 className="section-heading"><span>Alumni (2009–2014)</span></h2>
+            <h2 className="section-heading"><span>{t('people.alumni2009')}</span></h2>
             <div className="space-y-1">
               {alumni2009.map((m, i) => (
                 <div key={i} className="flex items-center gap-3 py-2.5 px-3 rounded-lg hover:bg-surface-2 transition-colors text-body-sm group">
@@ -145,7 +148,7 @@ function People() {
           </div>
 
           <div className="reveal reveal-delay-2">
-            <h2 className="section-heading"><span>Visiting Students</span></h2>
+            <h2 className="section-heading"><span>{t('people.visitingStudents')}</span></h2>
             <div className="space-y-1">
               {visitingStudents.map((s, i) => (
                 <div key={i} className="flex items-center gap-3 py-2.5 px-3 rounded-lg hover:bg-surface-2 transition-colors text-body-sm group">

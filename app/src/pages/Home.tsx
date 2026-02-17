@@ -1,59 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Beaker, Leaf, Droplets, Atom, FileText, Users, BookOpen, ChevronDown, ChevronUp, ArrowRight } from 'lucide-react'
-
-/* ═══ DATA ═══ */
-const researchAreas = [
-  {
-    icon: Beaker,
-    title: 'Natural and Engineered Clay Barriers',
-    color: 'from-amber-500 to-orange-600',
-    bg: 'bg-amber-50',
-    summary: 'Examining clay-water interfaces and their impact on barrier properties of soils, sediments, and engineered clay barriers.',
-    details: [
-      'Clay minerals—natural nanoparticles with a high specific surface area and cation exchange capacity—are ubiquitous in soils, sediments, and sedimentary rocks, where they strongly influence groundwater hydrology and solute migration.',
-      'Our current focus is on elucidating the relationships between microstructure and aqueous geochemistry in clayey media using molecular dynamics (MD) simulations and surface complexation models.',
-    ],
-  },
-  {
-    icon: Droplets,
-    title: 'Geologic Carbon Sequestration',
-    color: 'from-dtu-400 to-dtu-700',
-    bg: 'bg-dtu-50',
-    summary: 'Understanding CO₂ trapping mechanisms in geologic formations for carbon capture and storage (CCS).',
-    details: [
-      'Carbon capture and storage (CCS) has the potential to contribute significantly to CO₂ abatement efforts. Geologic carbon sequestration involves injecting supercritical CO₂ in suitable geologic formations.',
-      'Our research focuses on developing improved understanding of stress-porosity-permeability relations in porous media and fundamental basis of mineral-brine-CO₂ wetting properties.',
-    ],
-  },
-  {
-    icon: Leaf,
-    title: 'Mineral-Organic Interactions in Soils',
-    color: 'from-emerald-500 to-teal-600',
-    bg: 'bg-emerald-50',
-    summary: 'Predicting organic contaminant partitioning and understanding soil carbon protection by clay minerals.',
-    details: [
-      'We aim to develop computational chemistry approaches to predicting the partitioning of organic contaminants between different environmental phases, focused particularly on per- and polyfluoroalkyl substances (PFAS).',
-      'A second major goal is to advance understanding of soil carbon "protection" by clay mineral surfaces, examining clay-organic interactions and their impacts on microbial processes.',
-    ],
-  },
-  {
-    icon: Atom,
-    title: 'Isotope Effects in Liquid Water',
-    color: 'from-purple-500 to-indigo-600',
-    bg: 'bg-purple-50',
-    summary: 'Pioneering MD simulations to examine kinetic isotope effects as probes of interfacial mass fluxes.',
-    details: [
-      'Kinetic isotope effects (KIEs) are powerful probes of interfacial mass fluxes and the mechanisms that control them. Our group has pioneered the use of MD simulations to examine KIEs in liquid water.',
-      'Our ongoing research focuses on quantifying kinetic and equilibrium isotope effects in the partitioning and diffusion of monoatomic solutes in various aqueous phases.',
-    ],
-  },
-]
-
-const stats = [
-  { value: '17+', label: 'Publications', icon: BookOpen },
-  { value: '8', label: 'Members', icon: Users },
-  { value: '4', label: 'Research Areas', icon: Beaker },
-]
+import { useLanguage } from '../contexts/LanguageContext'
 
 /* ═══ COUNTER ANIMATION ═══ */
 function AnimatedStat({ value, label, icon: Icon, delay }: { value: string; label: string; icon: React.ElementType; delay: number }) {
@@ -83,6 +30,49 @@ function AnimatedStat({ value, label, icon: Icon, delay }: { value: string; labe
 function Home() {
   const [expandedArea, setExpandedArea] = useState<number | null>(null)
   const [showMethods, setShowMethods] = useState(false)
+  const { t } = useLanguage()
+
+  /* ═══ DATA (translated) ═══ */
+  const researchAreas = [
+    {
+      icon: Beaker,
+      title: t('home.research1.title'),
+      color: 'from-amber-500 to-orange-600',
+      bg: 'bg-amber-50',
+      summary: t('home.research1.summary'),
+      details: [t('home.research1.detail1'), t('home.research1.detail2')],
+    },
+    {
+      icon: Droplets,
+      title: t('home.research2.title'),
+      color: 'from-dtu-400 to-dtu-700',
+      bg: 'bg-dtu-50',
+      summary: t('home.research2.summary'),
+      details: [t('home.research2.detail1'), t('home.research2.detail2')],
+    },
+    {
+      icon: Leaf,
+      title: t('home.research3.title'),
+      color: 'from-emerald-500 to-teal-600',
+      bg: 'bg-emerald-50',
+      summary: t('home.research3.summary'),
+      details: [t('home.research3.detail1'), t('home.research3.detail2')],
+    },
+    {
+      icon: Atom,
+      title: t('home.research4.title'),
+      color: 'from-purple-500 to-indigo-600',
+      bg: 'bg-purple-50',
+      summary: t('home.research4.summary'),
+      details: [t('home.research4.detail1'), t('home.research4.detail2')],
+    },
+  ]
+
+  const stats = [
+    { value: '17+', label: t('home.publications'), icon: BookOpen },
+    { value: '8', label: t('home.members'), icon: Users },
+    { value: '4', label: t('home.researchAreas'), icon: Beaker },
+  ]
 
   // Scroll reveal
   useEffect(() => {
@@ -115,13 +105,12 @@ function Home() {
         <div className="container-content relative py-16 md:py-22">
           <div className="max-w-2xl">
             <h1 className="text-display text-white mb-4 text-balance">
-              Interfacial Water
+              {t('home.heroTitle1')}
               <br />
-              <span className="text-gradient">Research Group</span>
+              <span className="text-gradient">{t('home.heroTitle2')}</span>
             </h1>
             <p className="text-body-lg text-white/50 max-w-xl mb-10 leading-relaxed">
-              Gaining fundamental insight into the properties of liquid water at interfaces
-              using atomistic simulations, models, and experiments.
+              {t('home.heroSubtitle')}
             </p>
 
             {/* Stats row */}
@@ -143,7 +132,7 @@ function Home() {
               <div className="avatar-ring">
                 <img
                   src="/asset_1.jpg"
-                  alt="Dr. Nguyen Van A"
+                  alt={t('home.name')}
                   className="w-36 h-36 md:w-44 md:h-44 object-cover"
                 />
               </div>
@@ -151,14 +140,14 @@ function Home() {
 
             {/* Info */}
             <div className="flex-1 text-center md:text-left">
-              <h2 className="text-h2 text-dtu-900 mb-1">Dr. Nguyen Van A</h2>
+              <h2 className="text-h2 text-dtu-900 mb-1">{t('home.name')}</h2>
               <p className="text-dtu-500 font-medium text-body italic mb-5">
-                Associate Professor
+                {t('home.title')}
               </p>
               <div className="text-body-sm text-gray-500 leading-relaxed space-y-0.5 mb-6">
-                <p>Department of Civil and Environmental Engineering</p>
-                <p>Duy Tan University</p>
-                <p>Da Nang & Ho Chi Minh City, Vietnam</p>
+                <p>{t('home.department')}</p>
+                <p>{t('home.university')}</p>
+                <p>{t('home.location')}</p>
               </div>
               <a
                 href="#cv"
@@ -166,7 +155,7 @@ function Home() {
                 style={{ textDecoration: 'none', color: 'white' }}
               >
                 <FileText className="w-4 h-4" />
-                Curriculum Vitae
+                {t('home.cv')}
                 <ArrowRight className="w-3.5 h-3.5 opacity-60" />
               </a>
             </div>
@@ -187,11 +176,12 @@ function Home() {
       <section className="container-content mb-16">
         <div className="reveal">
           <h2 className="section-heading">
-            <span>Research Goals</span>
+            <span>{t('home.researchGoals')}</span>
           </h2>
-          <p className="text-body text-gray-600 leading-[1.85] text-justify max-w-none">
-            Interfaces between liquid water and other phases (minerals, air, carbon-rich fluids, living organisms) are ubiquitous in terrestrial natural environments. Surface chemistry and mass fluxes at these interfaces play key roles in influencing a broad range of environmental phenomena including contaminant fate and transport, metal biogeochemical cycling, multiphase flow in porous media, cloud nucleation, sediment transport, water treatment processes, and soil carbon dynamics. Our research aims to gain <strong>fundamental insight into the properties of liquid water at interfaces</strong> using state-of-the-art atomistic-level simulations, macroscopic scale models, and laboratory experiments in order to improve existing representations of key environmental processes.
-          </p>
+          <p
+            className="text-body text-gray-600 leading-[1.85] text-justify max-w-none"
+            dangerouslySetInnerHTML={{ __html: t('home.researchGoalsText') }}
+          />
         </div>
       </section>
 
@@ -202,7 +192,7 @@ function Home() {
             onClick={() => setShowMethods(!showMethods)}
             className="section-heading w-full cursor-pointer group"
           >
-            <span className="group-hover:text-dtu-700 transition-colors">Methods</span>
+            <span className="group-hover:text-dtu-700 transition-colors">{t('home.methods')}</span>
             <span className="flex-shrink-0 ml-auto w-8 h-8 rounded-lg bg-dtu-50 flex items-center justify-center group-hover:bg-dtu-100 transition-colors">
               {showMethods
                 ? <ChevronUp className="w-4 h-4 text-dtu-500" />
@@ -214,13 +204,13 @@ function Home() {
           {!showMethods && (
             <div className="bg-surface-2 rounded-xl p-5 border border-gray-100/80">
               <p className="text-body-sm text-gray-500 italic">
-                Molecular simulation techniques complementing experimental environmental chemistry methods.
+                {t('home.methodsSummary')}
               </p>
               <button
                 onClick={() => setShowMethods(true)}
                 className="text-body-sm text-dtu-500 font-semibold mt-2 hover:text-dtu-700 transition-colors inline-flex items-center gap-1 cursor-pointer"
               >
-                Read more <ArrowRight className="w-3.5 h-3.5" />
+                {t('home.readMore')} <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
           )}
@@ -231,7 +221,7 @@ function Home() {
           >
             <div className="bg-surface-2 rounded-xl p-6 border border-gray-100/80">
               <p className="text-body text-gray-600 leading-[1.85] text-justify">
-                Molecular simulation techniques are emerging as powerful complements to experimental environmental chemistry methods. A key strength of these techniques lies in their ability to probe small systems (up to millions of atoms) on a broader range of time scales than any experimental method (from femtoseconds to microseconds). Molecular simulations can reveal the behavior of individual atoms in complex systems and the manner in which macroscopic-scale properties (adsorption and partitioning coefficients, interfacial energies, mass transfer kinetics, diffusion coefficients, disjoining pressures, etc.) emerge from atomistic-level interactions.
+                {t('home.methodsDetail')}
               </p>
             </div>
           </div>
@@ -243,7 +233,7 @@ function Home() {
         <div className="container-content">
           <div className="reveal">
             <h2 className="section-heading">
-              <span>Current Research</span>
+              <span>{t('home.currentResearch')}</span>
             </h2>
           </div>
 
@@ -291,7 +281,7 @@ function Home() {
                   {/* CTA */}
                   <div className={`flex items-center gap-1 text-caption font-semibold transition-colors ${isExpanded ? 'text-dtu-600' : 'text-dtu-500 hover:text-dtu-700'
                     }`}>
-                    {isExpanded ? 'Show less' : 'Read more'}
+                    {isExpanded ? t('home.showLess') : t('home.readMore')}
                     <ArrowRight className={`w-3 h-3 transition-transform duration-300 ${isExpanded ? 'rotate-90' : ''}`} />
                   </div>
                 </div>

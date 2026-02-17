@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useLanguage } from '../contexts/LanguageContext'
 
 /* ═══ DATA ═══ */
 const newsItems = [
@@ -22,6 +23,8 @@ const getMonth = (date: string) => date.replace(/\s*\d{4}/, '').trim()
 
 /* ═══ COMPONENT ═══ */
 function News() {
+  const { t } = useLanguage()
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((e) => {
@@ -40,9 +43,9 @@ function News() {
       {/* ═══ HEADER ═══ */}
       <section className="bg-gradient-to-br from-dtu-950 via-dtu-900 to-dtu-800">
         <div className="container-content py-14 md:py-18">
-          <h1 className="text-h1 text-white mb-2">News & Events</h1>
+          <h1 className="text-h1 text-white mb-2">{t('news.title')}</h1>
           <p className="text-body text-white/50 max-w-lg">
-            Latest achievements, awards, and milestones from our group.
+            {t('news.subtitle')}
           </p>
         </div>
       </section>
