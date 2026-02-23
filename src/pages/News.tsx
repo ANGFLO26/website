@@ -1,14 +1,15 @@
 import { motion } from 'framer-motion'
+import { GraduationCap, Award, FileText, Trophy, Bookmark } from 'lucide-react'
 import { useLanguage } from '../contexts/useLanguage'
 
 /* ═══ CATEGORY ICONS ═══ */
-const getNewsIcon = (title: string): string => {
+const getNewsIcon = (title: string): React.ReactNode => {
   const lower = title.toLowerCase()
-  if (lower.includes('defended') || lower.includes('thesis')) return '🎓'
-  if (lower.includes('scholarship') || lower.includes('goldwater')) return '🏅'
-  if (lower.includes('paper') || lower.includes('highlighted')) return '📄'
-  if (lower.includes('candidate') || lower.includes('prize') || lower.includes('award') || lower.includes('wins') || lower.includes('receives')) return '🏆'
-  return '📌'
+  if (lower.includes('defended') || lower.includes('thesis')) return <GraduationCap className="w-4 h-4 text-dtu-red-600" />
+  if (lower.includes('scholarship') || lower.includes('goldwater')) return <Award className="w-4 h-4 text-amber-600" />
+  if (lower.includes('paper') || lower.includes('highlighted')) return <FileText className="w-4 h-4 text-blue-600" />
+  if (lower.includes('candidate') || lower.includes('prize') || lower.includes('award') || lower.includes('wins') || lower.includes('receives')) return <Trophy className="w-4 h-4 text-emerald-600" />
+  return <Bookmark className="w-4 h-4 text-gray-500" />
 }
 
 /* ═══ DATA ═══ */
@@ -137,9 +138,9 @@ function News() {
                     <div className="p-4 rounded-xl border border-transparent group-hover:border-neutral-100 group-hover:bg-white group-hover:shadow-card transition-all duration-300 ease-smooth">
                       {/* Mobile: Full date, Desktop: Hidden (already show month) */}
                       <span className="sm:hidden text-caption text-dtu-red-600 font-semibold block mb-1">{item.date}</span>
-                      <h3 className="text-body font-semibold text-gray-900 leading-snug">
-                        <span className="mr-1.5">{getNewsIcon(item.title)}</span>
-                        {item.title}
+                      <h3 className="text-body font-semibold text-gray-900 leading-snug flex items-start gap-2">
+                        <span className="mt-0.5 flex-shrink-0">{getNewsIcon(item.title)}</span>
+                        <span>{item.title}</span>
                       </h3>
                       {item.description && (
                         <p className="text-body-sm text-gray-600 mt-1.5 leading-relaxed">

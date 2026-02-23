@@ -48,13 +48,10 @@ function Layout({ children }: LayoutProps) {
     <div className="min-h-screen bg-surface-1 flex flex-col">
       {/* ═══ HEADER ═══ */}
       <header
-        className={`sticky top-0 z-50 transition-all duration-300 border-b ${isScrolled
-          ? 'bg-white/95 backdrop-blur-xl shadow-lg border-gray-200'
-          : 'bg-white border-gray-100'
-          }`}
+        className={`sticky top-0 z-50 transition-all duration-300 border-b border-gray-200 bg-white/95 backdrop-blur-sm ${isScrolled ? 'py-2' : 'py-4'}`}
       >
-        <div className="container-content py-4">
-          <div className="flex items-center justify-between">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12">
+          <div className="max-w-[1400px] mx-auto flex items-center justify-between">
             {/* Logo + Group Name */}
             <Link to="/" className="flex items-center gap-3 group" style={{ textDecoration: 'none' }}>
               <div className="w-10 h-10 rounded-xl bg-dtu-red-600 flex items-center justify-center group-hover:bg-dtu-red-700 transition-all duration-300 shadow-md">
@@ -75,37 +72,44 @@ function Layout({ children }: LayoutProps) {
               </div>
             </Link>
 
-            {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-3" role="navigation" aria-label="Main navigation">
-              {navItems.map((item) =>
-                item.internal ? (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    className={`px-4 py-2 rounded-lg text-gray-700 font-semibold text-body-sm tracking-wide hover:text-dtu-red-600 hover:bg-red-50 transition-all min-h-[44px] flex items-center ${isActive(item.path) ? 'text-dtu-red-600 bg-red-50' : ''
-                      }`}
-                    style={{ textDecoration: 'none' }}
-                  >
-                    {item.label}
-                  </Link>
-                ) : (
-                  <a
-                    key={item.path}
-                    href={item.path}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 rounded-lg text-gray-600 font-semibold text-body-sm tracking-wide hover:text-dtu-red-600 hover:bg-red-50 transition-all min-h-[44px] flex items-center gap-1.5"
-                    style={{ textDecoration: 'none' }}
-                  >
-                    {item.label}
-                    <ExternalLink className="w-3.5 h-3.5 opacity-50" />
-                  </a>
-                )
-              )}
+            {/* Desktop Nav - Tất cả items phân bố đều */}
+            <nav className="hidden lg:flex items-center flex-1 mx-8" role="navigation" aria-label="Main navigation">
+              <Link
+                to="/"
+                className={`flex-1 text-center text-base text-gray-600 hover:text-dtu-red-600 transition-colors ${isActive('/') ? 'text-gray-900 font-semibold' : ''}`}
+              >
+                {t('nav.research')}
+              </Link>
+              <Link
+                to="/people"
+                className={`flex-1 text-center text-base text-gray-600 hover:text-dtu-red-600 transition-colors ${isActive('/people') ? 'text-gray-900 font-semibold' : ''}`}
+              >
+                {t('nav.people')}
+              </Link>
+              <Link
+                to="/news"
+                className={`flex-1 text-center text-base text-gray-600 hover:text-dtu-red-600 transition-colors ${isActive('/news') ? 'text-gray-900 font-semibold' : ''}`}
+              >
+                {t('nav.news')}
+              </Link>
+              <Link
+                to="/publications"
+                className={`flex-1 text-center text-base text-gray-600 hover:text-dtu-red-600 transition-colors ${isActive('/publications') ? 'text-gray-900 font-semibold' : ''}`}
+              >
+                {t('nav.publications')}
+              </Link>
+              <a
+                href="https://cee.duytan.edu.vn/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 text-center text-base text-gray-500 hover:text-dtu-red-600 transition-colors"
+              >
+                {t('nav.cee')}
+              </a>
             </nav>
-
-            {/* Right side: Language Toggle + Mobile menu button */}
-            <div className="flex items-center gap-2 sm:gap-3">
+            
+            {/* Right side: Language Toggle + Mobile menu */}
+            <div className="flex items-center gap-4">
               <LanguageToggle />
 
               {/* Mobile hamburger - Increased touch target */}
@@ -128,7 +132,8 @@ function Layout({ children }: LayoutProps) {
           role="navigation"
           aria-label="Mobile navigation"
         >
-          <div className="container-content py-3 space-y-1">
+          <div className="w-full px-4 sm:px-6 lg:px-8 py-3 space-y-1">
+            <div className="max-w-[1400px] mx-auto space-y-1">
             {navItems.map((item, index) =>
               item.internal ? (
                 <Link
@@ -157,6 +162,7 @@ function Layout({ children }: LayoutProps) {
                 </a>
               )
             )}
+            </div>
           </div>
         </div>
       </header>

@@ -162,9 +162,9 @@ module.exports = {
         '30': '7.5rem',
       },
       maxWidth: {
-        'content': '960px',
-        'narrow': '720px',
-        'wide': '1200px',
+        'content': '1100px',
+        'narrow': '800px',
+        'wide': '1280px',
         'xl': '1280px',
       },
       keyframes: {
