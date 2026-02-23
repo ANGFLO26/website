@@ -41,7 +41,7 @@ function Layout({ children }: LayoutProps) {
     { path: '/people', label: t('nav.people'), internal: true },
     { path: '/news', label: t('nav.news'), internal: true },
     { path: '/publications', label: t('nav.publications'), internal: true },
-    { path: 'https://cee.duytan.edu.vn/', label: t('nav.cee'), internal: false },
+    { path: 'https://cee.duytan.edu.vn/', label: t('nav.cooperation'), internal: false },
   ]
 
   return (
@@ -104,7 +104,7 @@ function Layout({ children }: LayoutProps) {
                 rel="noopener noreferrer"
                 className="flex-1 text-center text-base text-gray-500 hover:text-dtu-red-600 transition-colors"
               >
-                {t('nav.cee')}
+                {t('nav.cooperation')}
               </a>
             </nav>
             

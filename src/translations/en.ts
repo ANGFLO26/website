@@ -4,7 +4,7 @@ const en = {
     'nav.people': 'People',
     'nav.news': 'News',
     'nav.publications': 'Publications',
-    'nav.cee': 'CEE',
+    'nav.cooperation': 'Cooperation',
 
     // Layout - Header
     'header.groupName': 'Interfacial Water Group',

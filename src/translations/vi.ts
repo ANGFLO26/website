@@ -4,7 +4,7 @@ const vi = {
     'nav.people': 'Thành viên',
     'nav.news': 'Tin tức',
     'nav.publications': 'Công bố',
-    'nav.cee': 'CEE',
+    'nav.cooperation': 'Hợp tác',
 
     // Layout - Header
     'header.groupName': 'Nhóm Nghiên cứu Nước Giao Diện',
