@@ -14,41 +14,96 @@ interface Publication {
 }
 
 /* ═══ DATA ═══ */
-const inPreparation: Publication[] = [
-  { authors: 'Nguyen V.A., Tran T.B.', title: 'A multiscale approach to simulate multiphase non-isothermal flow in deformable porous materials', journal: 'In preparation', year: 2024 },
-]
+const inPreparation: Publication[] = []
 
 const publications: Publication[] = [
-  { authors: 'Tran T.B., Le H.C., Nguyen V.A.', title: 'Coarse-grained simulation of colloidal self-assembly, cation exchange, and rheology in Na/Ca smectite clay gels', journal: 'J. Colloid Interface Sci.', volume: '693', pages: '137573', year: 2025, doi: '#' },
-  { authors: 'Le T.D., Nguyen V.A.', title: 'Interactions of PFAS at the water-air interface', journal: 'Environ. Sci. Technol.', volume: '59', pages: '2201-2210', year: 2025, doi: '#' },
-  { authors: 'Le H.C., Tran T.B., Nguyen V.A.', title: 'A coarse-grained model of clay colloidal aggregation and consolidation', journal: 'J. Colloid Interface Sci.', volume: '683', pages: '1188-1196', year: 2025, doi: '#' },
-  { authors: 'Pham T.E., Wolf M., Le H.C., et al.', title: 'Quantifying and modeling the impact of phase state on ice nucleation abilities', journal: 'Environ. Sci. Technol.', volume: '58', pages: '22678-22690', year: 2024, doi: '#' },
-  { authors: 'Do T.F., Nguyen V.A., Rosso K.M.', title: 'Mineral-associated organic matter is heterogeneous', journal: 'PNAS', volume: '121', pages: 'e2413216121', year: 2024, doi: '#' },
-  { authors: 'Vu T.G., Nguyen V.A.', title: 'Structure and dynamics of water in polysaccharide solutions and gels', journal: 'Biomacromolecules', volume: '25', pages: '6403-6415', year: 2024, doi: '#' },
-  { authors: 'Ngo T.H., et al.', title: 'Soft matter physics of the ground beneath our feet', journal: 'Soft Matter', volume: '20', pages: '5859-5888', year: 2024, doi: '#' },
-  { authors: 'Mai T.I., et al.', title: 'Water dynamics in calcium silicate hydrates', journal: 'Cem. Concr. Res.', volume: '184', pages: '107616', year: 2024, doi: '#' },
-  { authors: 'Ly T.K., Nguyen V.A., Vo T.L.', title: 'Extension of Madrid-2019 force field to Sr²⁺ and Ba²⁺', journal: 'J. Chem. Phys.', volume: '160', pages: '046101', year: 2024, doi: '#' },
-  { authors: 'Pham T.E., Nguyen V.A.', title: 'Hygroscopic growth of adsorbed water films on smectite clay particles', journal: 'Environ. Sci. Technol.', volume: '58', pages: '1109-1118', year: 2024, doi: '#' },
-  { authors: 'Seltzer A.M., Shackleton S.A., Nguyen V.A.', title: 'Solubility equilibrium isotope effects of noble gases in water', journal: 'J. Phys. Chem. B', volume: '127', pages: '9802-9812', year: 2023, doi: '#' },
-  { authors: 'Tran T.B., Nguyen V.A.', title: 'Nanoscale prediction of thermal, mechanical, and transport properties of hydrated clay', journal: 'ACS Nano', volume: '17', pages: '19211-19223', year: 2023, doi: '#' },
-  { authors: 'Pham T.E., Nguyen V.A.', title: 'Phase state, surface tension, water activity of water-organic clusters', journal: 'Environ. Sci. Technol.', volume: '57', pages: '13092-13103', year: 2023 },
-  { authors: 'Tran T.B., Do T.F., Nguyen V.A.', title: 'Molecular dynamics simulation of bentonite clay at 298 to 373 K', journal: 'Appl. Clay Sci.', volume: '240', pages: '106964', year: 2023 },
-  { authors: 'Le H.C., Nguyen V.A.', title: 'Interaction between hydrated smectite clay particles', journal: 'J. Phys. Chem. C', volume: '126', pages: '20990-20997', year: 2022 },
-  { authors: 'Calabrese S., et al.', title: 'Nano- to global-scale uncertainties in terrestrial enhanced weathering', journal: 'Environ. Sci. Technol.', volume: '56', pages: '15261-15272', year: 2022 },
+  // 2026
+  { authors: 'H. Hai, et al.', title: 'Tetra-Germanene Study from First Principles: Structure, Electronics, Mechanics, and Vibrations', journal: 'ACS Omega', year: 2026 },
+  
+  // 2025
+  { authors: 'H. Hai, et al.', title: 'Hydrogen diffusion in water-saturated Illite: From molecular simulations to a simple model', journal: 'Int. J. Hydrogen Energy', year: 2025 },
+  { authors: 'H. Hai, et al.', title: 'Assessment of H2 diffusivity in water and brine for underground storage: A molecular dynamics approach', journal: 'Int. J. Hydrogen Energy', year: 2025 },
+  { authors: 'H. Hai, et al.', title: 'Modeling Solubility Induced Elemental Fractionation of Noble Gases in Oils', journal: 'Geochim. Cosmochim. Acta', year: 2025 },
+  { authors: 'H. Hai, et al.', title: 'Structural and Mechanical Properties of Dickite and Nacrite Minerals: A Computational Study', journal: 'Minerals', year: 2025 },
+  
+  // 2024
+  { authors: 'H. Hai, et al.', title: 'The solubility of H2 in NaCl brine at high pressures and high temperatures: Molecular simulation study and thermodynamic modeling', journal: 'J. Mol. Liq.', year: 2024 },
+  { authors: 'H. Hai, et al.', title: 'Investigating zero-point vibrations of solid hydrogen via statistical moment method', journal: 'Phys. Scr.', year: 2024 },
+  { authors: 'H. Hai, et al.', title: 'Solubility of H2 in water and NaCl brine under subsurface storage conditions: Measurements and thermodynamic modeling', journal: 'Int. J. Hydrogen Energy', year: 2024 },
+  
+  // 2023
+  { authors: 'H. Hai, et al.', title: 'Effect of crystal surface orientation on aqueous solutions confined in charged nanopores', journal: 'J. Sci. Technol. Duy Tan Univ.', year: 2023 },
+  
+  // 2022
+  { authors: 'H. Hai, et al.', title: 'Revisiting the melting curves of vanadium and niobium metals under pressure', journal: 'Vacuum', year: 2022 },
+  { authors: 'H. Hai, et al.', title: 'Predicting thermodiffusion in simple binary fluid mixtures', journal: 'Eur. Phys. J. E', year: 2022 },
+  { authors: 'H. Hai, et al.', title: 'Diffusive transport of gases in saturated nanopores: Caprock leakage from a molecular simulation perspective', journal: 'J. Nat. Gas Sci. Eng.', year: 2022 },
+  { authors: 'H. Hai, et al.', title: 'Mass effect on viscosity of mixtures in entropy scaling framework: Application to Lennard-Jones mixtures', journal: 'Fluid Phase Equilib.', year: 2022 },
+  { authors: 'H. Hai, et al.', title: 'Entropy scaling for viscosity of pure Lennard-Jones fluids and their binary mixtures', journal: 'Commun. Phys.', year: 2022 },
+  
+  // 2021
+  { authors: 'H. Hai, et al.', title: 'On elemental and isotopic fractionation of noble gases in geological fluids by molecular diffusion', journal: 'Geochim. Cosmochim. Acta', year: 2021 },
+  { authors: 'H. Hai, et al.', title: 'Enhancing electrochemical performance of sodium Prussian blue cathodes for sodium-ion batteries via optimizing alkyl carbonate electrolytes', journal: 'Ceram. Int.', year: 2021 },
+  { authors: 'H. Hai, et al.', title: 'Dynamic Crossover in Fluids: From Hard Spheres to Molecules', journal: 'J. Phys. Chem. Lett.', year: 2021 },
+  { authors: 'H. Hai, et al.', title: 'Thermodynamic Scaling of the Shear Viscosity of Lennard-Jones Chains of Variable Rigidity', journal: 'Liquids', year: 2021 },
+  
+  // 2020
+  { authors: 'H. Hai, et al.', title: 'Excess volume, compressibility and speed of sound of CO2 + n-heptane binary mixture under pressure. II. Molecular simulations', journal: 'J. Supercrit. Fluids', year: 2020 },
+  { authors: 'H. Hai, et al.', title: 'Thermophysical properties of simple molecular liquid mixtures: On the limitations of some force fields', journal: 'J. Mol. Liq.', year: 2020 },
+  { authors: 'H. Hai, et al.', title: 'Density, Speed of Sound, Compressibility and Related Excess Properties of Methane + n-Heptane', journal: 'Int. J. Thermophys.', year: 2020 },
+  { authors: 'H. Hai, et al.', title: 'Molecular dynamics simulations on aqueous solution confined in charged nanochannels: asymmetric effect of surface charge', journal: 'Mol. Simul.', year: 2020 },
+  
+  // 2019
+  { authors: 'H. Hai, et al.', title: 'Elemental and isotopic fractionation of noble gases in gas and oil under reservoir conditions: Impact of thermodiffusion', journal: 'Eur. Phys. J. E', year: 2019 },
+  { authors: 'H. Hai, et al.', title: 'On the use of a friction model in a Volume of Fluid solver for the simulation of dynamic contact lines', journal: 'J. Comput. Phys.', year: 2019 },
+  { authors: 'H. Hai, et al.', title: 'Linking up Pressure, Chemical Potential and Thermal Gradients', journal: 'Eur. Phys. J. E', year: 2019 },
+  { authors: 'H. Hai, et al.', title: 'European Space Agency experiments on thermodiffusion of fluid mixtures in space', journal: 'Eur. Phys. J. E', year: 2019 },
+  { authors: 'H. Hai, et al.', title: 'Colloquium: European Space Agency experiments on thermodiffusion of fluid mixtures in space', journal: 'Eur. Phys. J. E', year: 2019 },
+  
+  // 2017
+  { authors: 'H. Hai, et al.', title: 'Thermodiffusion in multicomponent n-alkane mixtures', journal: 'NPJ Microgravity', year: 2017 },
+  { authors: 'H. Hai, et al.', title: 'Accurate determination of bubble-point of oils from PV data using Y-function and Tait equation', journal: 'J. Pet. Sci. Eng.', year: 2017 },
+  { authors: 'H. Hai, et al.', title: 'Simultaneous description of equilibrium, interfacial and transport properties using a Mie Chain Coarse-Grained Force Field', journal: 'Ind. Eng. Chem. Res.', year: 2017 },
+  
+  // 2016
+  { authors: 'H. Hai, et al.', title: 'Predictive Tait equation for non-polar and weakly polar fluids', journal: 'Fluid Phase Equilib.', year: 2016 },
+  
+  // 2015
+  { authors: 'H. Hai, et al.', title: 'Thermodynamic scaling of the viscosity of Mie pure fluids and mixtures', journal: 'J. Chem. Phys.', year: 2015 },
+  { authors: 'H. Hai, et al.', title: 'Tait equation in the extended corresponding states frame', journal: 'Fluid Phase Equilib.', year: 2015 },
+  { authors: 'H. Hai, et al.', title: 'Couplings between swelling and shear in saturated slit nanopores', journal: 'Phys. Rev. E', year: 2015 },
+  
+  // 2013
+  { authors: 'H. Hai, et al.', title: 'Influence of confinement on thermodiffusion', journal: 'J. Chem. Phys.', year: 2013 },
+  { authors: 'H. Hai, et al.', title: 'Shear viscosity of inhomogeneous hard-sphere fluids', journal: 'Appl. Mech. Mater.', year: 2013 },
+  { authors: 'H. Hai, et al.', title: 'Shear behavior of a confined thin film', journal: 'J. Chem. Phys.', year: 2013 },
+  { authors: 'H. Hai, et al.', title: 'Local shear viscosity of strongly inhomogeneous dense fluids', journal: 'J. Phys. Condens. Matter', year: 2013 },
+  
+  // 2012
+  { authors: 'H. Hai, et al.', title: 'Grand canonical-like molecular dynamics simulations', journal: 'J. Chem. Phys.', year: 2012 },
+  { authors: 'H. Hai, et al.', title: 'Local viscosity of a fluid confined in a narrow pore', journal: 'Phys. Rev. E', year: 2012 },
+  { authors: 'H. Hai, et al.', title: 'Shear viscosity of inhomogeneous fluids', journal: 'J. Chem. Phys.', year: 2012 },
+  
+  // 2010
+  { authors: 'H. Hai, et al.', title: 'Molecular dynamics study on solution-wall interaction potential', journal: 'J. Mech. Sci. Technol.', year: 2010 },
+  
+  // 2009
+  { authors: 'H. Hai, et al.', title: 'Molecular-dynamic simulation on the statical and dynamical properties of fluids in a nano-channel', journal: 'Korean J. Comput. Fluids Eng.', year: 2009 },
 ]
 
-/* ═══ JOURNAL COLOR MAP ═══ */
+/* ═══ JOURNAL COLOR MAP - Simplified ═══ */
 const journalColor = (j: string): string => {
+  // High impact journals - Red
+  if (j.includes('PNAS') || j.includes('Nat.')) return 'bg-red-50 text-red-700 border-red-100'
+  // Environmental journals - Emerald
   if (j.includes('Environ')) return 'bg-emerald-50 text-emerald-700 border-emerald-100'
-  if (j.includes('PNAS')) return 'bg-red-50 text-red-700 border-red-100'
-  if (j.includes('ACS Nano')) return 'bg-purple-50 text-purple-700 border-purple-100'
-  if (j.includes('Colloid')) return 'bg-blue-50 text-blue-700 border-blue-100'
-  if (j.includes('Phys. Chem')) return 'bg-amber-50 text-amber-700 border-amber-100'
-  if (j.includes('Soft Matter')) return 'bg-pink-50 text-pink-700 border-pink-100'
-  if (j.includes('Cem.') || j.includes('Concr')) return 'bg-stone-50 text-stone-700 border-stone-100'
-  if (j.includes('Chem. Phys')) return 'bg-indigo-50 text-indigo-700 border-indigo-100'
-  if (j.includes('Biomacro')) return 'bg-teal-50 text-teal-700 border-teal-100'
-  if (j.includes('Clay')) return 'bg-orange-50 text-orange-700 border-orange-100'
+  // Physics/Chemistry journals - Blue
+  if (j.includes('Phys') || j.includes('Chem')) return 'bg-blue-50 text-blue-700 border-blue-100'
+  // Material journals - Purple
+  if (j.includes('ACS') || j.includes('Mater') || j.includes('Nano')) return 'bg-purple-50 text-purple-700 border-purple-100'
+  // Energy journals - Amber
+  if (j.includes('Energy') || j.includes('Hydrogen')) return 'bg-amber-50 text-amber-700 border-amber-100'
+  // Default - Neutral
   return 'bg-neutral-50 text-neutral-600 border-neutral-100'
 }
 
@@ -175,7 +230,7 @@ function Publications() {
               </motion.div>
 
               {/* Cards */}
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {yearPubs.map((pub, index) => {
                   const firstAuthor = pub.authors.split(',')[0]
                   const restAuthors = pub.authors.includes(',')

@@ -310,7 +310,7 @@
 
   /* ── Publication Card ────────────────────── */
   .pub-card {
-    @apply bg-white rounded-xl p-5 border border-neutral-100 relative overflow-hidden;
+    @apply bg-white rounded-xl p-4 border border-neutral-100 relative overflow-hidden;
     transition: all var(--duration-normal) var(--ease-smooth);
   }
 
@@ -338,7 +338,7 @@
 
   /* ── Member Card ─────────────────────────── */
   .member-card {
-    @apply bg-white rounded-2xl p-6 shadow-card text-center border border-transparent;
+    @apply bg-white rounded-2xl p-4 shadow-card text-center border border-transparent;
     transition: all 0.35s var(--ease-smooth);
   }
 

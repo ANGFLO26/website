@@ -88,7 +88,7 @@ function People() {
 
       {/* ═══ CURRENT MEMBERS ═══ */}
       <section className="container-content py-14">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {currentMembers.map((member, index) => {
             const meta = roleMeta[member.roleType] || roleMeta['PhD Student']
             const Icon = meta.icon
@@ -146,7 +146,7 @@ function People() {
           >
             <h2 className="section-heading"><span>{t('people.alumni2015')}</span></h2>
           </motion.div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {alumni2015.map((m, i) => (
               <motion.div
                 key={i}

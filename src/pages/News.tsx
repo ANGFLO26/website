@@ -100,13 +100,13 @@ function News() {
                 {/* Year pill */}
                 {item.showYear && (
                   <motion.div
-                    className="flex items-center gap-3 mb-5 mt-8 first:mt-0"
+                    className="flex items-center gap-2 mb-4 mt-6 first:mt-0"
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-50px' }}
                     transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    <span className="badge bg-dtu-red-700 text-white border-dtu-red-800 text-caption font-bold px-3.5 py-1 z-10">
+                    <span className="badge bg-dtu-red-700 text-white border-dtu-red-800 text-xs font-bold px-2.5 py-0.5 z-10">
                       {item.year}
                     </span>
                     <div className="flex-1 h-px bg-gradient-to-r from-red-300 to-transparent" />
@@ -135,7 +135,7 @@ function News() {
 
                   {/* Content */}
                   <div className="flex-1 pl-4 sm:pl-6 pb-3">
-                    <div className="p-4 rounded-xl border border-transparent group-hover:border-neutral-100 group-hover:bg-white group-hover:shadow-card transition-all duration-300 ease-smooth">
+                    <div className="p-3 rounded-xl border border-transparent group-hover:border-neutral-100 group-hover:bg-white group-hover:shadow-card transition-all duration-300 ease-smooth">
                       {/* Mobile: Full date, Desktop: Hidden (already show month) */}
                       <span className="sm:hidden text-caption text-dtu-red-600 font-semibold block mb-1">{item.date}</span>
                       <h3 className="text-body font-semibold text-gray-900 leading-snug flex items-start gap-2">

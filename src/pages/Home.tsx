@@ -63,7 +63,7 @@ function Home() {
   ]
 
   const stats = [
-    { value: '17+', label: t('home.publications'), icon: BookOpen },
+    { value: '43', label: t('home.publications'), icon: BookOpen },
     { value: '8', label: t('home.members'), icon: Users },
     { value: '4', label: t('home.researchAreas'), icon: Beaker },
   ]
@@ -146,29 +146,65 @@ function Home() {
         >
           <div className="p-6 sm:p-7 md:p-9">
             {/* Profile layout */}
-            <div className="flex flex-col lg:flex-row gap-6 lg:gap-9 items-center lg:items-start">
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center lg:items-start justify-center">
 
-              {/* Personal Photo */}
-              <div className="flex-shrink-0 order-2 lg:order-1">
+              {/* Personal Photo - Left */}
+              <div className="flex-shrink-0">
                 <div className="avatar-ring">
                   <img
-                    src="/asset_1.jpg"
+                    src="/leader.jpg"
                     alt={t('home.name')}
-                    className="w-32 h-32 sm:w-36 sm:h-36 lg:w-44 lg:h-44 object-cover"
+                    className="w-36 h-36 sm:w-40 sm:h-40 lg:w-48 lg:h-48 object-cover"
                   />
                 </div>
               </div>
 
-              {/* Info */}
-              <div className="flex-1 text-center lg:text-left order-3">
+              {/* Info - Right (wider) */}
+              <div className="flex-1 max-w-2xl text-center lg:text-left">
                 <h2 className="text-h2 text-gray-900 mb-1">{t('home.name')}</h2>
                 <p className="text-dtu-red-700 font-semibold text-body italic mb-4 lg:mb-5">
                   {t('home.title')}
                 </p>
-                <div className="text-body-sm text-gray-700 leading-relaxed space-y-0.5 mb-5 lg:mb-6">
+                <div className="text-body-sm text-gray-700 leading-relaxed space-y-0.5 mb-3">
                   <p>{t('home.department')}</p>
                   <p>{t('home.university')}</p>
                   <p>{t('home.location')}</p>
+                </div>
+                
+                {/* Education & Thesis - 2 columns on desktop */}
+                <div className="mb-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="p-3 bg-surface-2 rounded-lg">
+                    <h4 className="text-caption font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                      {t('home.education')}
+                    </h4>
+                    <ul className="space-y-1 text-body-sm text-gray-600">
+                      <li>• {t('home.education.phd')}</li>
+                      <li>• {t('home.education.ms')}</li>
+                      <li>• {t('home.education.bs')}</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="p-3 bg-red-50/50 rounded-lg border border-red-100">
+                    <p className="text-caption font-semibold text-dtu-red-700 uppercase tracking-wider mb-1">
+                      {t('home.phdThesis')}
+                    </p>
+                    <p className="text-body-sm text-gray-700 italic text-xs mb-2">
+                      {t('home.phdThesis.title')}
+                    </p>
+                    <p className="text-caption font-semibold text-blue-700 uppercase tracking-wider mb-1">
+                      {t('home.msThesis')}
+                    </p>
+                    <p className="text-body-sm text-gray-700 italic text-xs">
+                      {t('home.msThesis.title')}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Additional Info - Horizontal layout */}
+                <div className="mb-4 flex flex-wrap gap-x-6 gap-y-1 text-body-sm text-gray-600">
+                  <p><span className="font-medium">{t('home.birthdate')}</span> • {t('home.birthplace')}</p>
+                  <p><span className="font-medium">{t('home.languages')}:</span> {t('home.languages.en')}, {t('home.languages.fr')}</p>
+                  <p><span className="font-medium">{t('home.researchGrants')}:</span> 3 {t('home.grants.count')}</p>
                 </div>
                 <a
                   href="#cv"
@@ -181,16 +217,6 @@ function Home() {
                 </a>
               </div>
 
-              {/* Desktop: Group Photo ở bên phải */}
-              <div className="flex-shrink-0 hidden lg:block order-2">
-                <div className="relative">
-                  <img
-                    src="/asset_2.jpg"
-                    alt="Research Group"
-                    className="w-48 h-48 xl:w-56 xl:h-56 rounded-2xl object-cover shadow-elevated"
-                  />
-                </div>
-              </div>
             </div>
           </div>
         </motion.div>

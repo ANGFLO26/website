@@ -238,9 +238,15 @@ function Layout({ children }: LayoutProps) {
                   <MapPin className="w-4 h-4 mt-0.5 text-dtu-red-400 flex-shrink-0" />
                   <span>{t('footer.address')}<br />{t('footer.location')}</span>
                 </li>
-                <li className="flex items-center gap-2.5">
-                  <Mail className="w-4 h-4 text-dtu-red-400 flex-shrink-0" />
-                  <span>research@duytan.edu.vn</span>
+                <li className="flex flex-col gap-1.5">
+                  <div className="flex items-center gap-2.5">
+                    <Mail className="w-4 h-4 text-dtu-red-400 flex-shrink-0" />
+                    <span>hoanghai3@duytan.edu.vn</span>
+                  </div>
+                  <div className="flex items-center gap-2.5">
+                    <Mail className="w-4 h-4 text-transparent flex-shrink-0" />
+                    <span>hhoang052@gmail.com</span>
+                  </div>
                 </li>
               </ul>
             </div>
