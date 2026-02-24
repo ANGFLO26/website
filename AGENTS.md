@@ -172,3 +172,39 @@ npm run preview   # Preview production build
 - Animations: consistent easing `[0.22, 1, 0.36, 1]`, 300-600ms duration
 - All user-facing text through `t()` function
 - Components: named exports for utilities, default exports for pages
+
+---
+
+## Recent Updates (February 2026)
+
+### Major Content Update
+- **Profile**: Complete profile update with Dr. Hoang Hai's information from CV
+  - Name, title, birth date/place, contact info
+  - Education: PhD Physics (Pau, 2013), MS Mechanical Engineering (Dong A, 2009), BS Aerospace Engineering (HCMUT, 2007)
+  - PhD & Master thesis titles
+  - Languages: English (fluent), French (fluent)
+  - Work experience: Postdoc at University of Pau (2013-2018), Head of Computational & Simulation Group at Duy Tan University (2018-present)
+  - 3 national-level research grants (2 as PI, 1 as participant)
+- **Publications**: Added all 43 publications from CV (2009-2026)
+- **Assets**: New profile photo (`leader.jpg`)
+
+### Layout Improvements
+- **Profile Section**: Changed from 3-column to 2-column layout (removed group photo)
+- **Navigation**: Even distribution of 5 nav items with flex-1
+- **Publications Page**: 
+  - Reduced card padding (p-5 → p-4) and spacing (space-y-3 → space-y-2)
+  - Simplified journal badge colors from 10+ to 5 categories
+- **People Page**: Reduced member card padding (p-6 → p-4) and gaps
+- **News Page**: Reduced year badge size and timeline item padding (p-4 → p-3)
+- **Footer**: Fixed email alignment for both addresses
+
+### Bug Fixes
+- Fixed publication year errors (2024 → 2023 for specific paper)
+- Reordered publications chronologically
+- Updated stats counter (17+ → 43 publications)
+- Fixed email display alignment in footer
+
+### New Files
+- `document/CHECKLIST_DATA_MISSING.md` - Data collection checklist
+- `document/Ly lich khoa hoc -ThayHai-2026.md` - CV source document
+- `public/leader.jpg` - New profile photo
