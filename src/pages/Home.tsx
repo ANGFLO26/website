@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Beaker, Leaf, Droplets, Atom, FileText, Users, BookOpen, ChevronDown, ArrowRight } from 'lucide-react'
+import { Beaker, Leaf, Droplets, Atom, FileText, Users, BookOpen, ChevronDown, ArrowRight, ExternalLink } from 'lucide-react'
 import { useLanguage } from '../contexts/useLanguage'
 import { useSmoothScroll } from '../hooks/useScrollAnimation'
 import { FadeInUp } from '../components/PageTransition'
@@ -207,13 +207,15 @@ function Home() {
                   <p><span className="font-medium">{t('home.researchGrants')}:</span> 3 {t('home.grants.count')}</p>
                 </div>
                 <a
-                  href="#cv"
+                  href="/CV-Hoang-Hai-2026.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="btn-primary"
                   style={{ textDecoration: 'none', color: 'white' }}
                 >
                   <FileText className="w-4 h-4" />
                   {t('home.cv')}
-                  <ArrowRight className="w-3.5 h-3.5 opacity-60" />
+                  <ExternalLink className="w-3.5 h-3.5 opacity-60" />
                 </a>
               </div>
 
