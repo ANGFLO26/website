@@ -19,7 +19,7 @@ const en = {
     'footer.contact': 'Contact',
     'footer.address': 'Duy Tan University',
     'footer.location': 'Da Nang & Ho Chi Minh City, Vietnam',
-    'footer.copyright': '© 2025 Interfacial Water Research Group · Duy Tan University',
+    'footer.copyright': '© 2025 Interfacial Water Group · Duy Tan University',
     'footer.rights': 'All rights reserved',
 
     // Home - Hero
