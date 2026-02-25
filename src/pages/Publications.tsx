@@ -143,7 +143,7 @@ function Publications() {
               transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             >
               <a
-                href="https://scholar.google.com"
+                href="https://scholar.google.com.vn/citations?user=BeDvDfIAAAAJ&hl=en"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary self-start sm:self-auto"

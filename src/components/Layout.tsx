@@ -216,7 +216,7 @@ function Layout({ children }: LayoutProps) {
                 ))}
                 <li>
                   <a
-                    href="https://scholar.google.com"
+                    href="https://scholar.google.com.vn/citations?user=BeDvDfIAAAAJ&hl=en"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-body-sm text-white/80 hover:text-dtu-red-300 transition-colors inline-flex items-center gap-1"
