@@ -1,6 +1,6 @@
-# Interfacial Water Research Group — Website
+# Thermophysics Modeling and Simulation Group — Website
 
-> Official website for the Interfacial Water Group at **Duy Tan University**, Vietnam.
+> Official website for the Thermophysics Modeling and Simulation Group at **Duy Tan University**, Vietnam.
 
 ## ✨ Features
 
@@ -114,4 +114,4 @@ The `vercel.json` file rewrites all routes to `index.html` for client-side routi
 
 ## 📝 License
 
-© 2025 Interfacial Water Research Group · Duy Tan University. All rights reserved.
+© 2025 Thermophysics Modeling and Simulation Group · Duy Tan University. All rights reserved.

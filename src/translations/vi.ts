@@ -7,25 +7,25 @@ const vi = {
     'nav.cooperation': 'Hợp tác',
 
     // Layout - Header
-    'header.groupName': 'Nhóm Nghiên cứu Nước Giao Diện',
+    'header.groupName': 'Nhóm Mô hình và Mô phỏng Nhiệt Vật lý',
     'header.university': 'Đại học Duy Tân',
-    'header.groupShort': 'IWG',
+    'header.groupShort': 'TMG',
 
     // Layout - Footer
-    'footer.groupName': 'Nhóm Nghiên cứu Nước Giao Diện',
-    'footer.description': 'Nghiên cứu sâu về tính chất của nước lỏng tại các bề mặt tiếp xúc bằng mô phỏng phân tử và thí nghiệm.',
+    'footer.groupName': 'Nhóm Mô hình và Mô phỏng Nhiệt Vật lý',
+    'footer.description': 'Nghiên cứu mô hình và mô phỏng nhiệt vật lý sử dụng động học phân tử, phương pháp tính toán và khuôn khổ lý thuyết.',
     'footer.navigation': 'Điều hướng',
     'footer.newsEvents': 'Tin tức & Sự kiện',
     'footer.contact': 'Liên hệ',
     'footer.address': 'Đại học Duy Tân',
     'footer.location': 'Đà Nẵng & Thành phố Hồ Chí Minh, Việt Nam',
-    'footer.copyright': '© 2025 Nhóm Nghiên cứu Nước Giao Diện · Đại học Duy Tân',
+    'footer.copyright': '© 2025 Nhóm Mô hình và Mô phỏng Nhiệt Vật lý · Đại học Duy Tân',
     'footer.rights': 'Bảo lưu mọi quyền',
 
     // Home - Hero
-    'home.heroTitle1': 'Nước Giao Diện',
-    'home.heroTitle2': 'Nhóm Nghiên Cứu',
-    'home.heroSubtitle': 'Nghiên cứu sâu về tính chất của nước lỏng tại các bề mặt tiếp xúc bằng mô phỏng nguyên tử, mô hình và thí nghiệm.',
+    'home.heroTitle1': 'Nhóm Mô hình và',
+    'home.heroTitle2': 'Mô phỏng Nhiệt Vật lý',
+    'home.heroSubtitle': 'Nghiên cứu nhiệt vật lý sử dụng động học phân tử, phương pháp tính toán và khuôn khổ lý thuyết để hiểu hành vi chất lưu và hiện tượng vận chuyển.',
     'home.publications': 'Công bố',
     'home.members': 'Thành viên',
     'home.researchAreas': 'Lĩnh vực NC',

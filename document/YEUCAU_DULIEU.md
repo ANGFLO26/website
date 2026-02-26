@@ -113,4 +113,4 @@ Cảm ơn Thầy!
 
 ---
 *File tạo ngày: 25/02/2026*
-*Website: Interfacial Water Group - Duy Tan University*
+*Website: Thermophysics Modeling and Simulation Group - Duy Tan University*

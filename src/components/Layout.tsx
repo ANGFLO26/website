@@ -57,8 +57,8 @@ function Layout({ children }: LayoutProps) {
               <div className="w-10 h-10 rounded-xl bg-dtu-red-600 flex items-center justify-center group-hover:bg-dtu-red-700 transition-all duration-300 shadow-md">
                 <Droplets className="w-5 h-5 text-white" />
               </div>
-              <div className="hidden sm:block">
-                <div className="text-gray-900 font-bold text-body-lg tracking-tight leading-tight">
+              <div className="hidden sm:block max-w-[280px] lg:max-w-[380px]">
+                <div className="text-gray-900 font-bold text-body lg:text-body-lg tracking-tight leading-snug">
                   {t('header.groupName')}
                 </div>
                 <div className="text-dtu-red-600 text-caption font-semibold tracking-wide uppercase">
@@ -73,7 +73,7 @@ function Layout({ children }: LayoutProps) {
             </Link>
 
             {/* Desktop Nav - Tất cả items phân bố đều */}
-            <nav className="hidden lg:flex items-center flex-1 mx-8" role="navigation" aria-label="Main navigation">
+            <nav className="hidden lg:flex items-center flex-1 mx-4 xl:mx-6" role="navigation" aria-label="Main navigation">
               <Link
                 to="/"
                 className={`flex-1 text-center text-base text-gray-600 hover:text-dtu-red-600 transition-colors ${isActive('/') ? 'text-gray-900 font-semibold' : ''}`}
@@ -185,7 +185,7 @@ function Layout({ children }: LayoutProps) {
                 <div className="w-8 h-8 rounded-lg bg-dtu-red-800/50 flex items-center justify-center">
                   <Droplets className="w-4 h-4 text-dtu-red-400" />
                 </div>
-                <span className="text-white font-semibold text-body">{t('footer.groupName')}</span>
+                <span className="text-white font-semibold text-body-sm lg:text-body leading-snug">{t('footer.groupName')}</span>
               </div>
               <p className="text-body-sm text-white/85 leading-relaxed max-w-xs">
                 {t('footer.description')}

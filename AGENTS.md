@@ -1,8 +1,8 @@
-# Interfacial Water Group Website
+# Thermophysics Modeling and Simulation Group Website
 
 ## Project Overview
 
-Website for the **Interfacial Water Group** research group at Duy Tan University. Built with React + TypeScript, featuring a modern DTU-branded design with bilingual support (English/Vietnamese).
+Website for the **Thermophysics Modeling and Simulation Group** at Duy Tan University. Built with React + TypeScript, featuring a modern DTU-branded design with bilingual support (English/Vietnamese).
 
 ## Tech Stack
 

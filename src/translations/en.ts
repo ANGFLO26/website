@@ -7,25 +7,25 @@ const en = {
     'nav.cooperation': 'Cooperation',
 
     // Layout - Header
-    'header.groupName': 'Interfacial Water Group',
+    'header.groupName': 'Thermophysics Modeling and Simulation Group',
     'header.university': 'Duy Tan University',
-    'header.groupShort': 'IWG',
+    'header.groupShort': 'TMG',
 
     // Layout - Footer
-    'footer.groupName': 'Interfacial Water Group',
-    'footer.description': 'Gaining fundamental insight into the properties of liquid water at interfaces using molecular simulations and experiments.',
+    'footer.groupName': 'Thermophysics Modeling and Simulation Group',
+    'footer.description': 'Thermophysics modeling and simulation research using molecular dynamics, computational methods, and theoretical frameworks.',
     'footer.navigation': 'Navigation',
     'footer.newsEvents': 'News & Events',
     'footer.contact': 'Contact',
     'footer.address': 'Duy Tan University',
     'footer.location': 'Da Nang & Ho Chi Minh City, Vietnam',
-    'footer.copyright': '© 2025 Interfacial Water Group · Duy Tan University',
+    'footer.copyright': '© 2025 Thermophysics Modeling and Simulation Group · Duy Tan University',
     'footer.rights': 'All rights reserved',
 
     // Home - Hero
-    'home.heroTitle1': 'Interfacial Water',
-    'home.heroTitle2': 'Research Group',
-    'home.heroSubtitle': 'Gaining fundamental insight into the properties of liquid water at interfaces using atomistic simulations, models, and experiments.',
+    'home.heroTitle1': 'Thermophysics Modeling',
+    'home.heroTitle2': 'and Simulation Group',
+    'home.heroSubtitle': 'Thermophysics research using molecular dynamics, computational methods, and theoretical frameworks to understand fluid behavior and transport phenomena.',
     'home.publications': 'Publications',
     'home.members': 'Members',
     'home.researchAreas': 'Research Areas',
